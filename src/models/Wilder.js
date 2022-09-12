@@ -7,6 +7,7 @@ module.exports = new EntitySchema({
   columns: {
     id: {
       primary: true,
+      // On utilise le type uuid pour que l'id soit unique et inviolable
       type: "uuid",
       generated: "uuid",
     },

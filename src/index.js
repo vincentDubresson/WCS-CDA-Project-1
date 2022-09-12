@@ -3,6 +3,8 @@ const express = require('express');
 
 // On appelle TypeORM
 const typeorm = require('typeorm');
+
+// On appelle l'entité
 const Wilder = require("./models/Wilder");
 
 // On crée le Serveur
@@ -14,6 +16,7 @@ const dataSource = new typeorm.DataSource({
   database: "./WCS-CDA-Project-1.sqlite",
   // Ne jamais mettre l'option ci-dessous en prod
   synchronize: true,
+  // On déclare l'entité utilisée dans la base de données.
   entities: [Wilder],
 })
 
@@ -27,10 +30,10 @@ const PORT = 4000;
 
 // Fonction pour démarrer le serveur
 async function start() {
-  // On attend l'initialisation de la BDD et l'insertion avant la suite
+  // On attend l'initialisation de la BDD, l'effacement et l'insertion avant la suite
   await dataSource.initialize();
   await dataSource.getRepository(Wilder).clear();
-  await dataSource.getRepository(Wilder).save({ name: "Jean Wilder"});
+  await dataSource.getRepository(Wilder).save({ name: "John Doe"});
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}.`);
   });
