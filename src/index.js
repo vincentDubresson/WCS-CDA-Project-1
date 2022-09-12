@@ -3,6 +3,7 @@ const express = require('express');
 
 // On appelle TypeORM
 const typeorm = require('typeorm');
+const Wilder = require("./models/Wilder");
 
 // On crée le Serveur
 const app = express();
@@ -10,9 +11,10 @@ const app = express();
 // On crée ou on va chercher la base de données.
 const datasource = new typeorm.DataSource({
   type: "sqlite",
-  database: "WCS-CDA-Project-1.sqlite",
+  database: "./WCS-CDA-Project-1.sqlite",
   // Ne jamais mettre l'option ci-dessous en prod
   synchronize: true,
+  entities: [Wilder],
 })
 
 // On récupère la route
@@ -27,6 +29,7 @@ const PORT = 4000;
 async function start() {
   // On attend l'initialisation de la BDD avant la suite
   await datasource.initialize();
+  datasource.getRepository(Wilder).save({ name: "Jean Wilder"});
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}.`);
   });
