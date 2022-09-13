@@ -11,8 +11,10 @@ module.exports = new EntitySchema({
       type: "uuid",
       generated: "uuid",
     },
-    name: {
-      // A confirmer mais pas obligatoire de mettre VARCHAR
+    firstName: {
+      type: "text",
+    },
+    lastName: {
       type: "text",
     }
   },

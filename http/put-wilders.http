@@ -1,0 +1,7 @@
+PUT http://127.0.0.1:4000/api/wilders/51858f16-4a70-45ae-a0ab-a9343543c157
+Content-Type: application/json
+
+{
+  "firstName": "Michel",
+  "lastName": "Bob"
+}

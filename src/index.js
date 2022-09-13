@@ -5,12 +5,20 @@ const { getDatabase } = require("./database/utils");
 
 // On crée le Serveur
 const app = express();
+app.use(express.json());
 
 // On crée les routes sans oublier de tester en HTTP
 app.get("/", function (req, res) {
   res.send("Hello World !!")
 });
-app.get("/wilders", wildersController.get);
+
+// On crée le CRUD pour l'entité Wilders
+const API_WILDERS_PATH = "/api/wilders";
+app.get(API_WILDERS_PATH, wildersController.get);
+app.get(`${API_WILDERS_PATH}/:id`, wildersController.getById)
+app.post(API_WILDERS_PATH, wildersController.post);
+app.put(`${API_WILDERS_PATH}/:id`, wildersController.put);
+app.delete(`${API_WILDERS_PATH}/:id`, wildersController.del);
 
 // Pour Node on va utiliser le port 4000.
 const PORT = 4000;

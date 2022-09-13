@@ -1,0 +1,7 @@
+POST http://localhost:4000/api/wilders
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe"
+}
