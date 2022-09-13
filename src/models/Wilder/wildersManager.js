@@ -25,9 +25,9 @@ async function getWilderById(id) {
 }
 
 // Requête pour créer un nouveau wilder
-async function createWilder(firstName, lastName) {
+async function createWilder(firstName, lastName, picture) {
   const wilderRepository = await getWilderRepository();
-  const newWilder = wilderRepository.create({ firstName, lastName });
+  const newWilder = wilderRepository.create({ firstName, lastName, picture });
   await wilderRepository.save(newWilder);
   return newWilder;
 }

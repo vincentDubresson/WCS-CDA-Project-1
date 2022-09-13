@@ -16,6 +16,14 @@ module.exports = new EntitySchema({
     },
     lastName: {
       type: "text",
+    },
+    description: {
+      type: "text",
+      default: "Lorem Ipsum",
+    },
+    picture: {
+      type: "text",
+      default: "empty.png"
     }
   },
 });

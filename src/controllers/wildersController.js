@@ -19,11 +19,11 @@ const getById = async(req, res) => {
 
 // Fonction post pour créer un nouveau wilder (prise en charge erreurs)
 const post = async (req, res) => {
-  const { firstName, lastName } = req.body;
+  const { firstName, lastName, picture } = req.body;
   if (!firstName || !lastName) {
     res.status(404).json({error: "Firstname and lastname are mandatory."});
   } else {
-    const newWilder = await createWilder(firstName, lastName);
+    const newWilder = await createWilder(firstName, lastName, picture);
     res.status(201).json(newWilder);
   }
 }
