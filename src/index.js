@@ -19,7 +19,7 @@ const dataSource = new typeorm.DataSource({
   // On déclare l'entité utilisée dans la base de données.
   entities: [Wilder],
   // Ne jamais mettre l'option ci-dessous en prod
-  logging: true,
+  logging: ["query", "error"],
 })
 
 // On récupère la route
