@@ -1,5 +1,5 @@
 const typeorm = require('typeorm');
-const Wilder = require("../models/Wilder");
+const Wilder = require("../models/Wilder/wildersEntity");
 
 // On crée ou on va chercher la base de données.
 const dataSource = new typeorm.DataSource({
@@ -13,10 +13,23 @@ const dataSource = new typeorm.DataSource({
   logging: ["query", "error"],
 });
 
-async function connectToDatabase() {
-  await dataSource.initialize();
-  console.log("Connected to Database.");
+// Fonction de connexion à la BDD
+let initialized = false;
+async function getDatabase() {
+  if (!initialized) {
+    await dataSource.initialize();
+    initialized = true;
+    console.log("#### - Successfully connected to database - ####");
+  }
+  return dataSource;
 }
 
-exports.dataSource = dataSource;
-exports.connectToDatabase = connectToDatabase;
+// Fonction de récupération du Repository de la table Wilder
+async function getWilderRepository() {
+  return (await getDatabase()).getRepository(Wilder);
+}
+
+module.exports = {
+  getDatabase,
+  getWilderRepository,
+}

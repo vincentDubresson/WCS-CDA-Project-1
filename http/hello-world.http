@@ -1,2 +1,4 @@
+// On teste la route "/"
+
 // Raccourci ctrl+alt+R sinon cliquer sur "Send Request"
 GET http://localhost:4000
