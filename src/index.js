@@ -1,7 +1,7 @@
 // On appelle Express
 const express = require('express');
 // On appelle TypeORM
-const { dataSource } = require("./database/utils");
+const { dataSource, connectToDatabase } = require("./database/utils");
 // On appelle l'entité
 const Wilder = require("./models/Wilder");
 
@@ -19,7 +19,7 @@ const PORT = 4000;
 // Fonction pour démarrer le serveur
 async function start() {
   // On attend l'initialisation de la BDD, l'effacement et l'insertion avant la suite
-  await dataSource.initialize();
+  await connectToDatabase();
   await dataSource.getRepository(Wilder).clear();
   await dataSource.getRepository(Wilder).save({ name: "John Doe"});
   app.listen(PORT, () => {
@@ -28,3 +28,6 @@ async function start() {
 }
 
 start();
+
+
+

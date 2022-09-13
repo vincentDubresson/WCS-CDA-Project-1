@@ -13,4 +13,10 @@ const dataSource = new typeorm.DataSource({
   logging: ["query", "error"],
 });
 
+async function connectToDatabase() {
+  await dataSource.initialize();
+  console.log("Connected to Database.");
+}
+
 exports.dataSource = dataSource;
+exports.connectToDatabase = connectToDatabase;
