@@ -1,5 +1,45 @@
 import './App.css';
-import blank_profile from './assets/images/8bRN5ga.png';
+import Wilder from './components/Wilder/Wilder';
+
+const WILDERS = [
+  {
+    id: "aaa",
+    firstName: "John",
+    lastName: "Doe",
+    skills: [
+      {
+        id: "skill-1",
+        skillName: "PHP",
+      },
+    ],
+  },
+  {
+    id: "bbb",
+    firstName: "Jane",
+    lastName: "Doe",
+    skills: [
+      {
+        id: "skill-2",
+        skillName: "JS",
+      },
+    ],
+  },
+  {
+    id: "ccc",
+    firstName: "Bob",
+    lastName: "L'éponge",
+    skills: [
+      {
+        id: "skill-3",
+        skillName: "PHP",
+      },
+      {
+        id: "skill-4",
+        skillName: "JS",
+      },
+    ],
+  }
+];
 
 function App() {
 
@@ -13,38 +53,16 @@ function App() {
       <main className="container">
         <h2>Wilders</h2>
         <section className="card-row">
-          <article className="card">
-            <img src={blank_profile} alt="Jane Doe Profile" />
-            <h3>Jane Doe</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-            <h4>Wild Skills</h4>
-            <ul className="skills">
-              <li>
-                HTML
-                <span className="votes">3</span>
-              </li>
-              <li>
-                CSS
-                <span className="votes">3</span>
-              </li>
-              <li>
-                Typescript
-                <span className="votes">3</span>
-              </li>
-              <li>
-                React
-                <span className="votes">3</span>
-              </li>
-              <li>
-                Node <span className="votes">2</span>
-              </li>
-            </ul>
-          </article>
+          {
+            WILDERS.map((wilder) => (
+              <Wilder
+                key={wilder.id}
+                firstName={wilder.firstName}
+                lastName={wilder.lastName}
+                skills={wilder.skills}
+              />
+            ))
+          }
         </section>
       </main>
       <footer>
