@@ -1,5 +1,6 @@
 const { getWilderRepository, getSkillRepository } = require("../../database/utils");
 const { getSchoolByName } = require("../School/schoolManager");
+const { getSkillByName } = require("../Skill/skillsManager");
 
 // Requête pour initialiser la BDD au lancement du serveur
 async function initializeWilders() {
@@ -7,14 +8,18 @@ async function initializeWilders() {
   await wilderRepository.clear();
   const lyonSchool = await getSchoolByName("WCS-Lyon");
   const bordeauxSchool = await getSchoolByName("WCS-Bordeaux");
+  const phpSkill = await getSkillByName("PHP");
+  const cSharpSkill = await getSkillByName("C#");
   await wilderRepository.save({
     firstName: "John",
     lastName: "Doe",
-    school: lyonSchool, });
+    school: lyonSchool,
+    skills: [phpSkill], });
   await wilderRepository.save({
     firstName: "Jane",
     lastName: "Doe",
-    school: bordeauxSchool, });
+    school: bordeauxSchool,
+    skills: [cSharpSkill], });
 }
 
 // Requête pour récupérer la liste des Wilders
