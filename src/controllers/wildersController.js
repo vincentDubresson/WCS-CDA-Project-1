@@ -1,4 +1,10 @@
-const { getWilders, getWilderById, createWilder, deleteWilder, updateWilder } = require("../models/Wilder/wildersManager");
+const {
+  getWilders,
+  getWilderById,
+  createWilder,
+  deleteWilder,
+  updateWilder
+} = require("../models/Wilder/wildersManager");
 
 // Fonction get pour récupérer les Wilders
 const get = async (req, res) => {
