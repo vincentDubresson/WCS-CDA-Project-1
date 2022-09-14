@@ -3,7 +3,8 @@ const {
   getWilderById,
   createWilder,
   deleteWilder,
-  updateWilder
+  updateWilder,
+  addSkillToWilder
 } = require("../models/Wilder/wildersManager");
 
 // Fonction get pour récupérer les Wilders
@@ -62,10 +63,27 @@ const del = async (req, res) => {
   }
 }
 
+const addSkill = async (req, res) => {
+  const { id: wilderId } = req.params;
+  const { skillId } = req.body;
+
+  if (!skillId) {
+    res.status(404).json({error: "Skill Id is mandatory."});
+  } else {
+    try {
+      const skillUpdatedToWilder = await addSkillToWilder(wilderId, skillId);
+      res.status(201).json(skillUpdatedToWilder);
+    } catch (error) {
+      res.status(404).json({error: error.message});
+    }
+  }
+}
+
 module.exports = {
   get,
   getById,
   post,
   put,
   del,
+  addSkill,
 }

@@ -30,7 +30,15 @@ module.exports = new EntitySchema({
     school: {
       target: "School",
       type: "many-to-one",
+      // eager permet de créer les relations automatiquement
       eager: true,
-    }
+    },
+    skills: {
+      target: "Skill",
+      type: "many-to-many",
+      // joinTable permet de créer une table de jointure.
+      joinTable: true,
+      eager: true,
+    },
   }
 });

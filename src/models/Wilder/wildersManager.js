@@ -1,5 +1,5 @@
-const { getWilderRepository } = require("../../database/utils");
-const { getSchoolByName } = require("../School/SchoolManager");
+const { getWilderRepository, getSkillRepository } = require("../../database/utils");
+const { getSchoolByName } = require("../School/schoolManager");
 
 // Requête pour initialiser la BDD au lancement du serveur
 async function initializeWilders() {
@@ -68,6 +68,21 @@ async function deleteWilder(id) {
   return wilderRepository.remove(delWilder);
 }
 
+async function addSkillToWilder(wilderId, skillId) {
+  const wilderRepository = await getWilderRepository();
+  const skillRepository = await getSkillRepository();
+  const wilder = await wilderRepository.findOneBy({ id: wilderId });
+  if (!wilder) {
+    throw Error("No existing Wilder matching ID.");
+  }
+  const skill = await skillRepository.findOneBy({ id: skillId });
+  if (!skill) {
+    throw Error("No existing Skill matching ID.");
+  }
+  wilder.skills = [...wilder.skills, skill];
+  return wilderRepository.save(wilder);
+}
+
 module.exports = {
   initializeWilders,
   getWilders,
@@ -75,4 +90,5 @@ module.exports = {
   createWilder,
   updateWilder,
   deleteWilder,
+  addSkillToWilder,
 };

@@ -1,7 +1,8 @@
 const express = require('express');
 const wildersController = require('./controllers/wildersController');
 const { initializeWilders } = require("./models/Wilder/wildersManager");
-const { initializeSchool } = require("./models/School/SchoolManager");
+const { initializeSchool } = require("./models/School/schoolManager");
+const { initializeSkill } = require('./models/Skill/skillsManager');
 const { getDatabase } = require("./database/utils");
 
 // On crée le Serveur
@@ -20,12 +21,14 @@ app.get(`${API_WILDERS_PATH}/:id`, wildersController.getById)
 app.post(API_WILDERS_PATH, wildersController.post);
 app.put(`${API_WILDERS_PATH}/:id`, wildersController.put);
 app.delete(`${API_WILDERS_PATH}/:id`, wildersController.del);
+app.post(`${API_WILDERS_PATH}/:id/skills`, wildersController.addSkill);
 
 // Pour Node on va utiliser le port 4000.
 const PORT = 4000;
 // Fonction pour démarrer le serveur
 async function start() {
   // On attend l'initialisation de la BDD.
+  await initializeSkill();
   await initializeSchool();
   await initializeWilders();
   // On efface et récupère les données de la BDD.

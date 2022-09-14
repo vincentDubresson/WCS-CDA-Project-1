@@ -1,0 +1,6 @@
+POST http://127.0.0.1:4000/api/wilders/b8f081bb-34a7-48cb-a645-ef6532ed3a57/skills
+Content-Type: application/json
+
+{
+  "skillId": "55a91104-93e1-4c1d-8884-73e9e9a36676"
+}

@@ -1,6 +1,7 @@
 const typeorm = require('typeorm');
 const Wilder = require("../models/Wilder/wildersEntity");
 const School = require("../models/School/schoolsEntity");
+const Skill = require("../models/Skill/skillsEntity");
 
 // On crée ou on va chercher la base de données.
 const dataSource = new typeorm.DataSource({
@@ -9,7 +10,7 @@ const dataSource = new typeorm.DataSource({
   // Ne jamais mettre l'option ci-dessous en prod
   synchronize: true,
   // On déclare les entités utilisées dans la base de données.
-  entities: [Wilder, School],
+  entities: [Wilder, School, Skill],
   // Ne jamais mettre l'option ci-dessous en prod
   logging: ["query", "error"],
 });
@@ -35,8 +36,14 @@ async function getSchoolRepository() {
   return (await getDatabase()).getRepository(School);
 }
 
+// Fonction de récupération du Repository de la table Skill
+async function getSkillRepository() {
+  return (await getDatabase()).getRepository(Skill);
+}
+
 module.exports = {
   getDatabase,
   getWilderRepository,
   getSchoolRepository,
+  getSkillRepository,
 }
