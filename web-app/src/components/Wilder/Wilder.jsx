@@ -10,14 +10,14 @@ export default function Wilder({
   skills
 }) {
   return(
-    <article className="card">
+    <article className="WilderCard">
             <img src={picture} alt={firstName + " " + lastName + " profile"} />
             <h3>{firstName} {lastName} - {school}</h3>
             <p>
               {description}
             </p>
             <h4>Wild Skills</h4>
-            <ul className="skills">
+            <ul className="CardSkills">
               {
                 skills.map((skill) => {
                   return (

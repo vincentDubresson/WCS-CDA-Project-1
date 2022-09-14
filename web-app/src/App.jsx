@@ -55,13 +55,13 @@ function App() {
   return (
     <div className="App">
       <header>
-        <div className="container">
+        <div className="HeaderContainer">
           <h1>Wilders Book</h1>
         </div>
       </header>
-      <main className="container">
+      <main className="MainContainer">
         <h2>Wilders</h2>
-        <section className="card-row">
+        <section className="CardsSection">
           {
             WILDERS.map((wilder) => (
               <Wilder
@@ -78,7 +78,7 @@ function App() {
         </section>
       </main>
       <footer>
-        <div className="container">
+        <div className="FooterContainer">
           <p>&copy; 2022 Wild Code School</p>
         </div>
       </footer>

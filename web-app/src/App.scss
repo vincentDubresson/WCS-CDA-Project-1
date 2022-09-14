@@ -1,74 +1,67 @@
-body {
-  background-color: whitesmoke;
-  font-family: sans-serif;
-  color: #222;
-  margin: 0;
-}
- 
-h1, h2, h3 {
-  margin: 0 0 0.35em;
-}
- 
-h1 {
-  font-size: 40px;
-}
- 
-h2 {
-  font-size: 28px;
-}
- 
-h3 {
-  font-size: 20px;
-}
- 
-h4 {
-  font-size: 15px;
-}
- 
-p {
-  margin: 0 0 1.15em;
-}
 
 .App {
   height: 100vh;
-}
- 
-.container {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 24px;
-}
 
-.container h2 {
-  text-align: center;
-  margin: 0px 0 30px;
+  header {
+    background-color: rgb(247, 108, 108);
+    color: rgb(243, 243, 243);
+    text-align: center;
+    border-bottom: 2px solid black;
+
+    .HeaderContainer {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 24px;
+    }
+  }
+
+  .MainContainer {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 24px;
+
+    h2 {
+      text-align: center;
+      margin: 0px 0 30px;
+    }
+
+    .CardsSection {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+  }
+
+  footer {
+    background-color: rgba(247, 108, 108, 0.95);
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    border-top: 2px solid black;
+
+    .FooterContainer {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 24px;
+    }
+
+  }
 }
  
-header {
-  background-color: rgb(247, 108, 108);
-  color: rgb(243, 243, 243);
-  text-align: center;
-  border-bottom: 2px solid black;
-}
+
  
-footer {
-  background-color: rgba(247, 108, 108, 0.95);
-  width: 100vw;
-  position: fixed;
-  bottom: 0;
-  border-top: 2px solid black;
-}
+
+ 
+
  
 /* 
  * card-layout. css 
  */
-.card-row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
+
  
 .button {
   /* Reset text link default */
