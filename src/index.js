@@ -1,6 +1,7 @@
 const express = require('express');
 const wildersController = require('./controllers/wildersController');
 const { initializeWilders } = require("./models/Wilder/wildersManager");
+const { initializeSchool } = require("./models/School/SchoolManager");
 const { getDatabase } = require("./database/utils");
 
 // On crée le Serveur
@@ -25,6 +26,7 @@ const PORT = 4000;
 // Fonction pour démarrer le serveur
 async function start() {
   // On attend l'initialisation de la BDD.
+  await initializeSchool();
   await initializeWilders();
   // On efface et récupère les données de la BDD.
   await getDatabase();

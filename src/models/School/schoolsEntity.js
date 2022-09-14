@@ -3,7 +3,7 @@ const EntitySchema = require("typeorm").EntitySchema;
 
 // On crée une table de la base de données
 module.exports = new EntitySchema({
-  name: "Wilder",
+  name: "School",
   columns: {
     id: {
       primary: true,
@@ -11,26 +11,9 @@ module.exports = new EntitySchema({
       type: "uuid",
       generated: "uuid",
     },
-    firstName: {
+    schoolName: {
       type: "text",
+      unique: true,
     },
-    lastName: {
-      type: "text",
-    },
-    description: {
-      type: "text",
-      default: "Lorem Ipsum",
-    },
-    picture: {
-      type: "text",
-      default: "empty.png"
-    }
   },
-  relations: {
-    school: {
-      target: "School",
-      type: "many-to-one",
-      eager: true,
-    }
-  }
 });

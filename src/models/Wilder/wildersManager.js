@@ -1,11 +1,20 @@
-const { IsNull } = require("typeorm");
 const { getWilderRepository } = require("../../database/utils");
+const { getSchoolByName } = require("../School/SchoolManager");
 
 // Requête pour initialiser la BDD au lancement du serveur
 async function initializeWilders() {
   const wilderRepository = await getWilderRepository();
   await wilderRepository.clear();
-  await wilderRepository.save({ firstName: "John", lastName: "Doe" });
+  const lyonSchool = await getSchoolByName("WCS-Lyon");
+  const bordeauxSchool = await getSchoolByName("WCS-Bordeaux");
+  await wilderRepository.save({
+    firstName: "John",
+    lastName: "Doe",
+    school: lyonSchool, });
+  await wilderRepository.save({
+    firstName: "Jane",
+    lastName: "Doe",
+    school: bordeauxSchool, });
 }
 
 // Requête pour récupérer la liste des Wilders
