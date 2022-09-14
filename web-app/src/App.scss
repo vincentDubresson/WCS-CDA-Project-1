@@ -46,16 +46,18 @@ p {
 }
  
 header {
-  background-color: #F76C6C;
-  color: #fff;
+  background-color: rgb(247, 108, 108);
+  color: rgb(243, 243, 243);
+  text-align: center;
+  border-bottom: 2px solid black;
 }
  
 footer {
-  background-color: rgba(240, 128, 128, 0.95);
+  background-color: rgba(247, 108, 108, 0.95);
   width: 100vw;
   position: fixed;
   bottom: 0;
-  border-top: 2px solid #F76C6C;
+  border-top: 2px solid black;
 }
  
 /* 

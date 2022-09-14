@@ -1,5 +1,5 @@
 import Skill from '../Skill/Skill';
-import './Wilder.css';
+import './Wilder.scss';
 
 export default function Wilder({
   firstName,

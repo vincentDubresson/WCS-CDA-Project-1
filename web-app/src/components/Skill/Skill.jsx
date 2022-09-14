@@ -1,4 +1,4 @@
-import './Skill.css';
+import './Skill.scss';
 
 export default function Skill({ name, numberOfVotes }) {
   return(
