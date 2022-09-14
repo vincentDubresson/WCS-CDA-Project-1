@@ -1,13 +1,16 @@
 const { getSchoolRepository, getWilderRepository } = require("../../database/utils");
 
+const schools = ["WCS-Lyon", "WCS-Bordeaux", "WCS-Paris", "WCS-La-Loupe"];
+
 // Requête pour initialiser la BDD au lancement du serveur
 async function initializeSchool() {
   const schoolRepository = await getWilderRepository();
   const wilderRepository = await getSchoolRepository();
   await schoolRepository.clear();
   await wilderRepository.clear();
-  await wilderRepository.save({ schoolName: "WCS-Lyon" });
-  await wilderRepository.save({ schoolName: "WCS-Bordeaux"});
+  schools.forEach(async (school) => {
+    await wilderRepository.save({ schoolName: school });
+  });
 }
 
 // On récupère l'école par son nom

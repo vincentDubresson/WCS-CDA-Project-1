@@ -63,6 +63,7 @@ const del = async (req, res) => {
   }
 }
 
+// Fonction addSkil pour ajouter un skill à un wilder.
 const addSkill = async (req, res) => {
   const { id: wilderId } = req.params;
   const { skillId } = req.body;

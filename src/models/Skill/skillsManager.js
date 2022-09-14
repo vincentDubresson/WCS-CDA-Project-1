@@ -1,15 +1,21 @@
-const { getSkillRepository } = require("../../database/utils")
+const { getSkillRepository } = require("../../database/utils");
+
+const skills = [
+  "PHP",
+  "Javascript",
+  "Typescript",
+  "Java",
+  "Python",
+  "Ruby",
+  "C#"
+];
 
 async function initializeSkill() {
   const skillRepository = await getSkillRepository();
   await skillRepository.clear();
-  await skillRepository.save({ skillName: "PHP" });
-  await skillRepository.save({ skillName: "Javascript" });
-  await skillRepository.save({ skillName: "Typescript" });
-  await skillRepository.save({ skillName: "Java" });
-  await skillRepository.save({ skillName: "Python" });
-  await skillRepository.save({ skillName: "Ruby" });
-  await skillRepository.save({ skillName: "C#" });
+  skills.forEach(async (skill) => {
+   await skillRepository.save({ skillName: skill });
+  });
 }
 
 // On récupère l'école par son nom

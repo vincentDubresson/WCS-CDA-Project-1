@@ -31,11 +31,11 @@ async function getWilders() {
 // Requête pour récupérer un Wilder par son Id
 async function getWilderById(id) {
   const wilderRepository = await getWilderRepository();
-  const wilderById = await wilderRepository.findOneBy({ id });
-  if (!wilderById) {
+  const wilder = await wilderRepository.findOneBy({ id });
+  if (!wilder) {
     throw Error("No existing Wilder matching ID.");
   }
-  return wilderById;
+  return wilder;
 }
 
 // Requête pour créer un nouveau wilder
@@ -49,30 +49,31 @@ async function createWilder(firstName, lastName) {
 // Requête pour modifier un wilder
 async function updateWilder(id, firstName, lastName) {
   const wilderRepository = await getWilderRepository();
-  const existingWilder = await wilderRepository.findOneBy({ id });
-  if (!existingWilder) {
+  const wilder = await wilderRepository.findOneBy({ id });
+  if (!wilder) {
     throw Error("No existing Wilder matching ID.");
   }
-  const wilderToUpdate = wilderRepository.save(
+  const updateWilder = wilderRepository.save(
     {
       id,
       firstName,
       lastName,
     }
   );
-  return wilderToUpdate;
+  return updateWilder;
 }
 
 // Requête pour supprimer un wilder
 async function deleteWilder(id) {
   const wilderRepository = await getWilderRepository();
-  const delWilder = await wilderRepository.findOneBy({ id });
-  if (!delWilder) {
+  const wilder = await wilderRepository.findOneBy({ id });
+  if (!wilder) {
     throw Error("No existing Wilder matching ID.");
   }
-  return wilderRepository.remove(delWilder);
+  return wilderRepository.remove(wilder);
 }
 
+// Requête pour ajouter un skill à un wilder
 async function addSkillToWilder(wilderId, skillId) {
   const wilderRepository = await getWilderRepository();
   const skillRepository = await getSkillRepository();
