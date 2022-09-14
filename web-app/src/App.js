@@ -6,6 +6,9 @@ const WILDERS = [
     id: "aaa",
     firstName: "John",
     lastName: "Doe",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat.",
+    school: "WCS-Lyon",
+    picture: "https://i.pravatar.cc/300?img=6",
     skills: [
       {
         id: "skill-1",
@@ -17,6 +20,9 @@ const WILDERS = [
     id: "bbb",
     firstName: "Jane",
     lastName: "Doe",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat.",
+    school: "WCS-Paris",
+    picture: "https://i.pravatar.cc/300?img=22",
     skills: [
       {
         id: "skill-2",
@@ -27,7 +33,10 @@ const WILDERS = [
   {
     id: "ccc",
     firstName: "Bob",
-    lastName: "L'éponge",
+    lastName: "Michel",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat.",
+    school: "WCS-La-Loupe",
+    picture: "https://i.pravatar.cc/?img=17",
     skills: [
       {
         id: "skill-3",
@@ -59,6 +68,9 @@ function App() {
                 key={wilder.id}
                 firstName={wilder.firstName}
                 lastName={wilder.lastName}
+                description={wilder.description}
+                picture={wilder.picture}
+                school={wilder.school}
                 skills={wilder.skills}
               />
             ))

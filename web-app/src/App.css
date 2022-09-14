@@ -1,4 +1,5 @@
 body {
+  background-color: whitesmoke;
   font-family: sans-serif;
   color: #222;
   margin: 0;
@@ -27,12 +28,21 @@ h4 {
 p {
   margin: 0 0 1.15em;
 }
+
+.App {
+  height: 100vh;
+}
  
 .container {
-  max-width: 800px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding: 24px;
+}
+
+.container h2 {
+  text-align: center;
+  margin: 0px 0 30px;
 }
  
 header {
@@ -41,6 +51,10 @@ header {
 }
  
 footer {
+  background-color: rgba(240, 128, 128, 0.95);
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
   border-top: 2px solid #F76C6C;
 }
  
@@ -48,9 +62,10 @@ footer {
  * card-layout. css 
  */
 .card-row {
-  display: grid;
-  grid-template-columns: repeat(3, 32%);
-  justify-content: space-between;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
  
 .button {
