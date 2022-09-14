@@ -22,4 +22,5 @@ async function getSchoolByName(name) {
 module.exports = {
   initializeSchool,
   getSchoolByName,
+  schools,
 }

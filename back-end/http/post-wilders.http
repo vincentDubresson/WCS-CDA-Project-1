@@ -3,5 +3,8 @@ Content-Type: application/json
 
 {
   "firstName": "Jane",
-  "lastName": "Doe"
+  "lastName": "Doe",
+  "description": "Lorem Ipsum",
+  "school": "fe6cb091-3623-4585-bd96-2928609d979b",
+  "skills": ["24117d50-cdd0-4c52-8af0-b43bb1de5ebf"]
 }

@@ -1,25 +1,52 @@
-const { getWilderRepository, getSkillRepository } = require("../../database/utils");
-const { getSchoolByName } = require("../School/schoolManager");
-const { getSkillByName } = require("../Skill/skillsManager");
+const { getWilderRepository, getSkillRepository, getSchoolRepository } = require("../../database/utils");
+const { getSchoolByName, schools} = require("../School/schoolManager");
+const { getSkillByName, skills  } = require("../Skill/skillsManager");
+const { faker } = require('@faker-js/faker');
+
+function RandArray(array){
+    var rand = Math.random()*array.length | 0;
+    var rValue = array[rand];
+    return rValue;
+}
+// Fonction utilisée pour créer un jeu de données en faker
+const wilders = (schools, skills) => {
+  let wildersArray = [];
+  for (let i = 0; i < 10; i++) {
+      wildersArray.push({
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
+      description: faker.lorem.sentence(25),
+      school: RandArray(schools),
+      skills: [RandArray(skills)],
+    });
+  };
+  return wildersArray;
+}
+const wildersArray = wilders(schools, skills);
 
 // Requête pour initialiser la BDD au lancement du serveur
 async function initializeWilders() {
   const wilderRepository = await getWilderRepository();
   await wilderRepository.clear();
   const lyonSchool = await getSchoolByName("WCS-Lyon");
-  const bordeauxSchool = await getSchoolByName("WCS-Bordeaux");
   const phpSkill = await getSkillByName("PHP");
-  const cSharpSkill = await getSkillByName("C#");
+  // On insère ici un fake dataset
+  wildersArray.forEach(async (wilder) => {
+    const wilderSchool = await getSchoolByName(wilder.school);
+    const wilderSkills = await getSkillByName(wilder.skills);
+    await wilderRepository.save({
+      firstName: wilder.firstName,
+      lastName: wilder.lastName,
+      description: wilder.description,
+      school: wilderSchool,
+      skills: [wilderSkills], });
+  });
   await wilderRepository.save({
     firstName: "John",
     lastName: "Doe",
+    description: faker.lorem.sentence(25),
     school: lyonSchool,
     skills: [phpSkill], });
-  await wilderRepository.save({
-    firstName: "Jane",
-    lastName: "Doe",
-    school: bordeauxSchool,
-    skills: [cSharpSkill], });
 }
 
 // Requête pour récupérer la liste des Wilders
@@ -39,9 +66,9 @@ async function getWilderById(id) {
 }
 
 // Requête pour créer un nouveau wilder
-async function createWilder(firstName, lastName) {
+async function createWilder(firstName, lastName, description, school, skills) {
   const wilderRepository = await getWilderRepository();
-  const newWilder = wilderRepository.create({ firstName, lastName });
+  const newWilder = wilderRepository.create({ firstName, lastName, description, school, skills });
   await wilderRepository.save(newWilder);
   return newWilder;
 }

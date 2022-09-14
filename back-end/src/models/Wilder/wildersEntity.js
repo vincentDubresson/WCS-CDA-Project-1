@@ -19,11 +19,11 @@ module.exports = new EntitySchema({
     },
     description: {
       type: "text",
-      default: "Lorem Ipsum",
+      default: "lorem ipsum lorem."
     },
     picture: {
       type: "text",
-      default: "empty.png"
+      default: "8bRN5ga.png"
     }
   },
   relations: {

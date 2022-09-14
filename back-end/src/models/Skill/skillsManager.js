@@ -2,8 +2,8 @@ const { getSkillRepository } = require("../../database/utils");
 
 const skills = [
   "PHP",
-  "Javascript",
-  "Typescript",
+  "JS",
+  "CSS",
   "Java",
   "Python",
   "Ruby",
@@ -27,4 +27,5 @@ async function getSkillByName(name) {
 module.exports = {
   initializeSkill,
   getSkillByName,
+  skills,
 }
