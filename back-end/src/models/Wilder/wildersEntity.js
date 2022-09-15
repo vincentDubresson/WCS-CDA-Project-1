@@ -23,7 +23,7 @@ module.exports = new EntitySchema({
     },
     picture: {
       type: "text",
-      default: "8bRN5ga.png"
+      default: "http://placeimg.com/300/300/people"
     }
   },
   relations: {
