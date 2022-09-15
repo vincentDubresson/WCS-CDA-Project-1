@@ -12,7 +12,7 @@ export default function Wilder({
 }) {
   return(
     <article className={isTeacher ? "WilderCard TeachCard" : "WilderCard"}>
-            <img className="WilderCardPicture" src={picture} alt={firstName + " " + lastName + " profile"} />
+            <img className="WilderCardPicture" src={picture} alt={`${firstName} ${lastName} profile`} />
             <h3 className="WilderCardName">{firstName} {lastName} - {school}</h3>
             <p className="WilderCardDescription">
               {description}
