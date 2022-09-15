@@ -15,6 +15,7 @@ export default function Home() {
               lastName={wilder.lastName}
               description={wilder.description}
               picture={wilder.picture}
+              isTeacher={wilder.isTeacher}
               school={wilder.school}
               skills={wilder.skills}
             />

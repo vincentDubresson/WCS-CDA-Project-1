@@ -6,22 +6,23 @@ export default function Wilder({
   lastName,
   description,
   picture,
+  isTeacher,
   school,
   skills
 }) {
   return(
-    <article className="WilderCard">
-            <img src={picture} alt={firstName + " " + lastName + " profile"} />
-            <h3>{firstName} {lastName} - {school}</h3>
-            <p>
+    <article className={isTeacher ? "WilderCard TeachCard" : "WilderCard"}>
+            <img className="WilderCardPicture" src={picture} alt={firstName + " " + lastName + " profile"} />
+            <h3 class="WilderCardName">{firstName} {lastName} - {school}</h3>
+            <p className="WilderCardDescription">
               {description}
             </p>
-            <h4>Wild Skills</h4>
-            <ul className="CardSkills">
+            <h4 className="WilderCardSkillsTitle">Wild Skills</h4>
+            <ul className="WilderCardSkillsContainer">
               {
                 skills.map((skill) => {
                   return (
-                    <li key={skill.id}>
+                    <li className="WilderCardSkills" key={skill.id}>
                       <Skill name={skill.skillName} numberOfVotes="5" />
                     </li>
                   )

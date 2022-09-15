@@ -1,49 +1,64 @@
+@import '../../index.scss';
+
 .WilderCard {
   background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  border: 1px solid #c9c9c9;
-  border-radius: 7px;
   width: 300px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  border-radius: 7px;
+  border: 1px solid $bgGrey;
+  box-shadow: $mediumShadow;
 
-  img {
-    border-radius: 7px 7px 0 0;
-    margin-bottom: 20px;
+  .WilderCardPicture {
     max-width: 80%;
     height: auto;
+    margin-bottom: 20px;
+    border-radius: 5px;
   }
 
-  h3, h4 {
-    color: #F76C6C;
+  .WilderCardName {
+    color: $salmonColor;
     text-align: center;
   }
 
-  p, ul {
-    color: #757575;
-    line-height: 1.5;
+  .WilderCardDescription {
+    color: $mediumColor;
     text-align: justify;
+    line-height: 25px;
   }
 
-  .CardSkills {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  .WilderCardSkillsTitle {
+    color: $salmonColor;
+    text-align: center;
+  }
+
+  .WilderCardSkillsContainer {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: $mediumColor;
+    text-align: justify;
+    line-height: 25px;
 
-    li {
-      margin: 4px 5px;
+    .WilderCardSkills {
+      background-color: white;
       display: flex;
       justify-content: space-around;
       align-items: center;
       gap: 5px;
-      border: #F76C6C 1px solid;
-      border-radius: 4px;
+      margin: 4px 5px;
       padding: 2px 5px;
+      border-radius: 4px;
+      border: 1px solid $bgSalmon;
     }
   }
+}
+
+.TeachCard {
+  background-color: $bgGrey;
 }

@@ -1,0 +1,44 @@
+//Font Colors
+$lightColor: whiteSmoke;
+$mediumColor: #757575;
+$darkColor: #222222;
+$salmonColor: #f76c6c;
+
+//Background Colors
+$bgLight: whiteSmoke;
+$bgGrey: #d8d8d8;
+$bgSalmon: #f76c6c;
+
+//Box Shadows
+$mediumShadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+
+body {
+  background-color: $bgLight;
+  font-family: sans-serif;
+  color: $darkColor;
+  margin: 0;
+}
+ 
+h1, h2, h3 {
+  margin: 0 0 0.35em;
+}
+ 
+h1 {
+  font-size: 40px;
+}
+ 
+h2 {
+  font-size: 28px;
+}
+ 
+h3 {
+  font-size: 20px;
+}
+ 
+h4 {
+  font-size: 15px;
+}
+ 
+p {
+  margin: 0 0 1.15em;
+}

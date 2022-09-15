@@ -1,12 +1,13 @@
+@import './index.scss';
 
 .App {
   height: 100vh;
 
-  header {
-    background-color: rgb(247, 108, 108);
-    color: rgb(243, 243, 243);
+  .AppHeader {
+    background-color: $bgSalmon;
+    color: $darkColor;
     text-align: center;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid $darkColor;
 
     .HeaderContainer {
       max-width: 1200px;
@@ -16,19 +17,19 @@
     }
   }
 
-  .MainContainer {
+  .AppMain {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
     padding: 24px;
   }
 
-  footer {
-    background-color: rgba(247, 108, 108, 0.95);
-    width: 100vw;
+  .AppFooter {
+    background-color: $bgSalmon;
     position: fixed;
     bottom: 0;
-    border-top: 2px solid black;
+    width: 100vw;
+    border-top: 2px solid $darkColor;
 
     .FooterContainer {
       max-width: 1200px;
@@ -39,27 +40,16 @@
 
   }
 }
- 
 
- 
 
- 
-
- 
 /* 
- * card-layout. css 
- */
-
- 
 .button {
-  /* Reset text link default */
-  text-decoration: none;
- 
-  background-color: #F76C6C;
-  color: #fff;
+  background-color: $bgSalmon;
+  display: inline-block;
+  color: $lightColor;
   padding: 0.5em 1em;
   border-radius: 4px;
-  display: inline-block;
+  text-decoration: none;
 }
- 
+  */
 

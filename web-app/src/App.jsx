@@ -5,15 +5,15 @@ function App() {
 
   return (
     <div className="App">
-      <header>
+      <header className="AppHeader">
         <div className="HeaderContainer">
           <h1>Wilders Book</h1>
         </div>
       </header>
-      <main className="MainContainer">
+      <main className="AppMain">
         <Home />
       </main>
-      <footer>
+      <footer className="AppFooter">
         <div className="FooterContainer">
           <p>&copy; 2022 Wild Code School</p>
         </div>
