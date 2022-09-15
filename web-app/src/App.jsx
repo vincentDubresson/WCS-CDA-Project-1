@@ -1,6 +1,6 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import './App.scss';
-import CreateWilder from './pages/Home/CreateWilder/CreateWilder';
+import CreateWilder from './pages/CreateWilder/CreateWilder';
 import Home from './pages/Home/Home';
 
 function App() {

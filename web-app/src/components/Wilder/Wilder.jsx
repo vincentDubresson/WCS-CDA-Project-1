@@ -1,4 +1,5 @@
 import Skill from '../Skill/Skill';
+import TeachStamp from '../../assets/images/TeacherStamp.png';
 import './Wilder.scss';
 
 export default function Wilder({
@@ -11,7 +12,10 @@ export default function Wilder({
   skills
 }) {
   return(
-    <article className={isTeacher ? "WilderCard TeachCard" : "WilderCard"}>
+    <article className="WilderCard">
+            {isTeacher ? (
+              <img className="WilderCardTeacherStamp" src={TeachStamp} alt="Teacher stamp" />
+            ) : null}
             <img className="WilderCardPicture" src={picture} alt={`${firstName} ${lastName} profile`} />
             <h3 className="WilderCardName">{firstName} {lastName}</h3>
             <h4 className="WilderCardSchool">{school.schoolName}</h4>
@@ -24,7 +28,7 @@ export default function Wilder({
                 skills.map((skill) => {
                   return (
                     <li className="WilderCardSkills" key={skill.id}>
-                      <Skill name={skill.skillName} numberOfVotes="5" />
+                      <Skill name={skill.skillName} numberOfVotes={isTeacher ? 5 : skill.skillScore} />
                     </li>
                   )
                 })

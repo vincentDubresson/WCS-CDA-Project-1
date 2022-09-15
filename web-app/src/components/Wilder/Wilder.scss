@@ -1,6 +1,8 @@
 @import '../../index.scss';
 
 .WilderCard {
+  overflow: hidden;
+  position: relative;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -11,6 +13,13 @@
   border-radius: 7px;
   border: 1px solid $bgGrey;
   box-shadow: $mediumShadow;
+
+  .WilderCardTeacherStamp {
+    position: absolute;
+    top: 0px;
+    right: -25px;
+    width: 170px;
+  }
 
   .WilderCardPicture {
     max-width: 80%;
