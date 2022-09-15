@@ -12,11 +12,14 @@ function randomInArray(array){
 const wildersFixtures = (schools, skills) => {
 let wildersArray = [];
 for (let i = 1; i <= 50; i++) {
+    let setTeacher = false;
+    (i % 10 === 0) ? setTeacher = true : setTeacher = false;
     wildersArray.push({
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     description: faker.lorem.sentence(25),
     picture: `https://i.pravatar.cc/300?img=${i}`,
+    isTeacher: setTeacher,
     school: randomInArray(schools),
     skills: [randomInArray(skills)],
   });

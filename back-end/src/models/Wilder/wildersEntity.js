@@ -24,6 +24,10 @@ module.exports = new EntitySchema({
     picture: {
       type: "text",
       default: "http://placeimg.com/300/300/people"
+    },
+    isTeacher: {
+      type: "boolean",
+      default: false,
     }
   },
   relations: {

@@ -18,6 +18,7 @@ async function initializeWilders() {
       lastName: wilder.lastName,
       description: wilder.description,
       picture: wilder.picture,
+      isTeacher: wilder.isTeacher,
       school: wilderSchool,
       skills: [wilderSkills], });
   }));
