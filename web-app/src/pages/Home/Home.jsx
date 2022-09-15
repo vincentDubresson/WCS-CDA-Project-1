@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import Loader from '../components/Loader/Loader';
-import NoWilder from '../components/NoWilder/NoWilder';
-import Wilder from "../components/Wilder/Wilder";
+import { Link } from 'react-router-dom';
+import Loader from '../../components/Loader/Loader';
+import NoWilder from '../../components/NoWilder/NoWilder';
+import Wilder from "../../components/Wilder/Wilder";
 //import { WILDERS } from '../data/wilders';
 import './Home.scss';
 
@@ -23,6 +24,7 @@ export default function Home() {
   return (
     <>
       <h2 className="HomeTitle">Wilders</h2>
+      <Link to="/create-wilder">Créer un Wilder</Link>
       {isLoading ?
         (
           <Loader />

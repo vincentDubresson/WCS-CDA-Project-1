@@ -1,5 +1,7 @@
+import { Routes, Route, Link } from 'react-router-dom';
 import './App.scss';
-import Home from './pages/Home';
+import CreateWilder from './pages/Home/CreateWilder/CreateWilder';
+import Home from './pages/Home/Home';
 
 function App() {
 
@@ -7,11 +9,14 @@ function App() {
     <div className="App">
       <header className="AppHeader">
         <div className="HeaderContainer">
-          <h1>Wilders Book</h1>
+          <Link to="/"><h1>Wilders Book</h1></Link>
         </div>
       </header>
       <main className="AppMain">
-        <Home />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/create-wilder" element={<CreateWilder />} />
+        </Routes>
       </main>
       <footer className="AppFooter">
         <div className="FooterContainer">
