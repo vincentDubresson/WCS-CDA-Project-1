@@ -1,4 +1,4 @@
-const { getWilderRepository, getSkillRepository, getSchoolRepository } = require("../../database/utils");
+const { getWilderRepository, getSkillRepository } = require("../../database/utils");
 const { getSchoolByName, schools} = require("../School/schoolManager");
 const { getSkillByName, skills  } = require("../Skill/skillsManager");
 const { faker } = require('@faker-js/faker');
@@ -8,6 +8,7 @@ function RandArray(array){
     var rValue = array[rand];
     return rValue;
 }
+
 // Fonction utilisée pour créer un jeu de données en faker
 const wilders = (schools, skills) => {
   let wildersArray = [];
