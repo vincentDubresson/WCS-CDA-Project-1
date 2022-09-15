@@ -3,7 +3,8 @@
 .WilderCard {
   overflow: hidden;
   position: relative;
-  background-color: rgba(247, 108, 108, 0.2);
+  background-color: rgb(202, 202, 202);
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -85,5 +86,5 @@
 }
 
 .TeachCard {
-  background-color: rgb(202, 202, 202);
+  background-color: rgba(247, 108, 108, 0.2);
 }

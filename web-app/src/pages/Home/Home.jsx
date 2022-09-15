@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <>
-      <h2 className="HomeTitle">Wilders</h2>
+      <h2 className="HomeTitle">Liste des Wilders</h2>
       <Link className="HomeCreateButtonLink" to="/create-wilder">
         <button className="HomeCreateButton">Créer un Wilder</button>
       </Link>

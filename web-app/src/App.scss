@@ -4,12 +4,13 @@
   height: 100vh;
 
   .AppHeader {
-    background-color: $bgSalmon;
-    color: $darkColor;
+    background-color: rgb(255, 196, 196);
     text-align: center;
-    border-bottom: 2px solid $darkColor;
+    border-bottom: 1px solid $salmonColor;
 
     .HeaderContainer {
+      display: flex;
+      justify-content: center;
       max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
@@ -17,7 +18,11 @@
 
       .HeaderTitle {
         text-decoration: none;
-        color: $lightColor;
+        color: $darkColor;
+
+        h1 {
+          margin-bottom: 0;
+        }
       }
     }
   }
@@ -34,11 +39,11 @@
   }
 
   .AppFooter {
-    background-color: $bgSalmon;
+    background-color: rgb(255, 196, 196);
     position: fixed;
     bottom: 0;
     width: 100vw;
-    border-top: 2px solid $darkColor;
+    border-top: 1px solid $salmonColor;
 
     .FooterContainer {
       display: flex;

@@ -12,6 +12,9 @@ $bgSalmon: #f76c6c;
 //Box Shadows
 $mediumShadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 
+::-webkit-scrollbar { 
+  display: none; }
+
 body {
   background-color: $bgLight;
   font-family: sans-serif;
