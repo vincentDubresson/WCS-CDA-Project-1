@@ -12,7 +12,7 @@ export default function Wilder({
   skills
 }) {
   return(
-    <article className="WilderCard">
+    <article className={isTeacher ? "WilderCard TeachCard" : "WilderCard"}>
             {isTeacher ? (
               <img className="WilderCardTeacherStamp" src={TeachStamp} alt="Teacher stamp" />
             ) : null}

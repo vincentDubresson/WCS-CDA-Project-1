@@ -3,7 +3,7 @@
 .WilderCard {
   overflow: hidden;
   position: relative;
-  background-color: white;
+  background-color: rgba(247, 108, 108, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -11,7 +11,7 @@
   width: 300px;
   padding: 20px;
   border-radius: 7px;
-  border: 1px solid $bgGrey;
+  border: 1px solid $salmonColor;
   box-shadow: $mediumShadow;
 
   .WilderCardTeacherStamp {
@@ -19,13 +19,20 @@
     top: 0px;
     right: -25px;
     width: 170px;
+    z-index: 1;
   }
 
   .WilderCardPicture {
     max-width: 80%;
     height: auto;
     margin-bottom: 20px;
-    border-radius: 5px;
+    border-radius: 9999px;
+    border: 3px solid $salmonColor;
+    transition: 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   .WilderCardName {
@@ -69,6 +76,8 @@
       width: 75px;
       margin: 4px 5px;
       padding: 2px 5px;
+      font-size: 14px;
+      font-weight: 600;;
       border-radius: 4px;
       border: 1px solid $bgSalmon;
     }
@@ -76,5 +85,5 @@
 }
 
 .TeachCard {
-  background-color: $bgGrey;
+  background-color: rgb(202, 202, 202);
 }

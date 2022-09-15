@@ -1,6 +1,31 @@
+@import '../../index.scss';
+
 .HomeTitle {
   text-align: center;
-  margin: 0px 0 30px;
+  margin: 0px 0 15px;
+}
+
+.HomeCreateButtonLink {
+  margin-bottom: 30px;
+  text-decoration: none;
+  color: $darkColor;
+  font-size: 14px;
+  font-weight: 600;
+
+  .HomeCreateButton {
+    cursor: pointer;
+    background-color: rgba(247, 108, 108, 0.2);
+    display: inline-block;
+    padding: 0.5em 3em;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 1px solid $salmonColor;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: rgba(247, 108, 108, 0.4);
+    }
+  }
 }
 
 .CardsSection {
