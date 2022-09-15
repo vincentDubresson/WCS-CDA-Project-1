@@ -13,7 +13,9 @@ module.exports = new EntitySchema({
     },
     skillName: {
       type: "text",
-      unique: true,
     },
+    skillScore: {
+      type: "text",
+    }
   },
 });
