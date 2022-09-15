@@ -18,6 +18,9 @@
   }
 
   .AppMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -33,12 +36,18 @@
     border-top: 2px solid $darkColor;
 
     .FooterContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
       padding: 24px;
-    }
 
+      .FooterText {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 

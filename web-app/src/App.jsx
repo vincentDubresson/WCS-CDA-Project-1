@@ -15,7 +15,7 @@ function App() {
       </main>
       <footer className="AppFooter">
         <div className="FooterContainer">
-          <p>&copy; 2022 Wild Code School</p>
+          <p className="FooterText">&copy; 2022 Wild Code School</p>
         </div>
       </footer>
     </div>
