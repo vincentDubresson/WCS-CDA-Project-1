@@ -2,10 +2,10 @@ const { schools } = require("../School/schoolManager");
 const { skills } = require("../Skill/skillsManager");
 const { faker } = require("@faker-js/faker");
 
-function RandArray(array){
-  var rand = Math.random()*array.length | 0;
-  var rValue = array[rand];
-  return rValue;
+function randomInArray(array){
+  let randomKey = Math.random() * array.length | 0;
+  let returnedValue = array[randomKey];
+  return returnedValue;
 }
 
 // Fonction utilisée pour créer un jeu de données en faker
@@ -16,8 +16,8 @@ for (let i = 0; i < 50; i++) {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     description: faker.lorem.sentence(25),
-    school: RandArray(schools),
-    skills: [RandArray(skills)],
+    school: randomInArray(schools),
+    skills: [randomInArray(skills)],
   });
 };
 return wildersArray;
