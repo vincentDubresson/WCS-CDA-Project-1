@@ -12,7 +12,12 @@ async function initializeWilders() {
   // On insère ici un fake dataset
   await Promise.all(wildersArray.map(async (wilder) => {
     const wilderSchool = await getSchoolByName(wilder.school);
-    const wilderSkills = await getSkillByName(wilder.skills);
+
+    const wilderSkills = [];
+    for (skill of wilder.skills) {
+      wilderSkills.push(await getSkillByName(skill));
+    }
+    //const wilderSkills = await getSkillByName(wilder.skills);
     await wilderRepository.save({
       firstName: wilder.firstName,
       lastName: wilder.lastName,
@@ -20,7 +25,7 @@ async function initializeWilders() {
       picture: wilder.picture,
       isTeacher: wilder.isTeacher,
       school: wilderSchool,
-      skills: [wilderSkills], });
+      skills: wilderSkills, });
   }));
 }
 

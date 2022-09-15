@@ -1,13 +1,12 @@
 const { getSkillRepository } = require("../../database/utils");
 
 const skills = [
-  "PHP",
-  "JS",
-  "CSS",
-  "Java",
-  "Python",
-  "Ruby",
-  "C#"
+  "Ruby",  //Ruby
+  "C#",  //C#
+  "Python", //Python
+  "Java",  //Java
+  "JS", //JS
+  "PHP" //PHP
 ];
 
 async function initializeSkill() {

@@ -21,7 +21,7 @@ for (let i = 1; i <= 50; i++) {
     picture: `https://i.pravatar.cc/300?img=${i}`,
     isTeacher: setTeacher,
     school: randomInArray(schools),
-    skills: [randomInArray(skills)],
+    skills: skills,
   });
 };
 return wildersArray;
