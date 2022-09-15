@@ -1,12 +1,13 @@
 const { getSkillRepository } = require("../../database/utils");
 
 const skills = [
+  "C+",
   "Ruby",
   "C#",
   "Python",
   "Java",
   "JS",
-  "PHP"
+  "PHP",
 ];
 
 async function initializeSkill() {
@@ -19,7 +20,7 @@ async function initializeSkill() {
   });
 }
 
-// On récupère l'école par son nom
+// On récupère l'école par son nom + note au hasard
 async function getSkillByName(name) {
   const skillRepository = await getSkillRepository();
   const score = Math.floor(Math.random() * 5) + 1;
