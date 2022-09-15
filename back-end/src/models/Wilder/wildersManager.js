@@ -1,29 +1,9 @@
 const { getWilderRepository, getSkillRepository } = require("../../database/utils");
-const { getSchoolByName, schools} = require("../School/schoolManager");
-const { getSkillByName, skills  } = require("../Skill/skillsManager");
+const { getSchoolByName } = require("../School/schoolManager");
+const { getSkillByName } = require("../Skill/skillsManager");
+const { wildersArray } = require("./wildersFixtures");
 const { faker } = require('@faker-js/faker');
 
-function RandArray(array){
-    var rand = Math.random()*array.length | 0;
-    var rValue = array[rand];
-    return rValue;
-}
-
-// Fonction utilisée pour créer un jeu de données en faker
-const wilders = (schools, skills) => {
-  let wildersArray = [];
-  for (let i = 0; i < 10; i++) {
-      wildersArray.push({
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-      description: faker.lorem.sentence(25),
-      school: RandArray(schools),
-      skills: [RandArray(skills)],
-    });
-  };
-  return wildersArray;
-}
-const wildersArray = wilders(schools, skills);
 
 // Requête pour initialiser la BDD au lancement du serveur
 async function initializeWilders() {
@@ -31,6 +11,7 @@ async function initializeWilders() {
   await wilderRepository.clear();
   const lyonSchool = await getSchoolByName("WCS-Lyon");
   const phpSkill = await getSkillByName("PHP");
+
   // On insère ici un fake dataset
   wildersArray.forEach(async (wilder) => {
     const wilderSchool = await getSchoolByName(wilder.school);
@@ -42,6 +23,7 @@ async function initializeWilders() {
       school: wilderSchool,
       skills: [wilderSkills], });
   });
+  
   await wilderRepository.save({
     firstName: "John",
     lastName: "Doe",
