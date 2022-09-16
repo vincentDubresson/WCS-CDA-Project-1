@@ -55,8 +55,6 @@ export default function Home() {
     )
   }
 
-  console.log(wildersList);
-
   return (
     <>
       <h2 className="HomeTitle">Liste des Wilders</h2>
