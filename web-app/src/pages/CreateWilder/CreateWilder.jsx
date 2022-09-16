@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { HOME_PATH } from '../paths';
 
 import './CreateWilder.scss';
 import { createWilder } from './rest';
@@ -277,7 +278,7 @@ export default function CreateWilder() {
         </fieldset>
         <div className="WilderFormButtonsContainer">
           <button className="WilderFormButton">Envoyer</button>
-          <Link to="/">
+          <Link to={HOME_PATH}>
             <button className="WilderFormButton">Annuler</button>
           </Link>
         </div>
