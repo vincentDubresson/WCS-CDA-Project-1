@@ -1,13 +1,7 @@
 const { schools } = require("../School/schoolManager");
 const { skills } = require("../Skill/skillsManager");
 const { faker } = require("@faker-js/faker");
-
-// Fonction de select random dans un tableau
-function randomInArray(array){
-  let randomKey = Math.random() * array.length | 0;
-  let returnedValue = array[randomKey];
-  return returnedValue;
-}
+const { randomInArray } = require("./WildersService");
 
 // Fonction utilisée pour créer un jeu de données en faker
 const wildersFixtures = (schools, skills) => {
