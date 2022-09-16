@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import './CreateWilder.scss';
+import { createWilder } from './rest';
 
 export default function CreateWilder() {
   const [firstName, setFirstName] = useState('');
@@ -9,22 +12,92 @@ export default function CreateWilder() {
   const [description, setDescription] = useState('');
   const [schoolName, setSchoolName] = useState('');
   const [isTeacher, setIsTeacher] = useState(null);
+  const skillPhp = "PHP";
   const [skillScorePhp, setSkillScorePhp] = useState(1);
+  const skillJs = "JS";
   const [skillScoreJs, setSkillScoreJs] = useState(1);
+  const skillJava = "java";
   const [skillScoreJava, setSkillScoreJava] = useState(1);
+  const skillPython = "Python";
   const [skillScorePython, setSkillScorePython] = useState(1);
+  const skillCSharp = "C#";
   const [skillScoreCsharp, setSkillScoreCsharp] = useState(1);
+  const skillRuby = "Ruby";
   const [skillScoreRuby, setSkillScoreRuby] = useState(1);
   
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('submitted');
+  const skills = [
+    {
+      skillName: skillPhp,
+      skillScore: skillScorePhp,
+    },
+    {
+      skillName: skillJs,
+      skillScore: skillScoreJs,
+    },
+    {
+      skillName: skillJava,
+      skillScore: skillScoreJava,
+    },
+    {
+      skillName: skillPython,
+      skillScore: skillScorePython,
+    },
+    {
+      skillName: skillCSharp,
+      skillScore: skillScoreCsharp,
+    },
+    {
+      skillName: skillRuby,
+      skillScore: skillScoreRuby,
+    },
+    {
+      skillName: "C+",
+      skillScore: 2,
+    }
+  ];
+
+  const initializeForm = () => {
+    setFirstName('');
+    setLastName('');
+    setDescription('');
+    setIsTeacher(null);
+    setSchoolName('');
+    setSkillScorePhp(1);
+    setSkillScoreJs(1);
+    setSkillScoreJava(1);
+    setSkillScorePython(1);
+    setSkillScoreCsharp(1);
+    setSkillScoreRuby(1);
+  }
+
+  const handleSubmit = async () => {
+    try {
+      console.log(skills)
+      await createWilder(
+        firstName,
+        lastName,
+        description,
+        isTeacher,
+        schoolName,
+        skills
+      );
+      toast.success(`Wilder ${firstName} ${lastName} créé avec succès.`);
+      initializeForm();
+    } catch (error) {
+      toast.error(error.message);
+    }
   }
 
   return(
     <>
       <h2 className="CreateWilderTitle">Ajouter un Wilder</h2>
-      <form className="WilderForm" onSubmit={(e) => {handleSubmit(e)}}>
+      <form
+        className="WilderForm"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          await handleSubmit();
+        }}
+      >
         <fieldset className="WilderFormFieldset InfoFieldset">
           <legend className="WilderFormFieldsetLegend">Informations d'usage</legend>
           <label className="WilderFormTextLabel">
@@ -79,7 +152,7 @@ export default function CreateWilder() {
               onChange={(e) => {setSchoolName(e.target.value)}}
               required
             >
-              <option>Choisir une école</option>
+              <option defaultValue="">Choisir une école</option>
               <option defaultValue="WCS-Lyon">WCS-Lyon</option>
               <option defaultValue="WCS-Paris">WCS-Paris</option>
               <option defaultValue="WCS-Bordeaux">WCS-Bordeaux</option>
@@ -207,9 +280,9 @@ export default function CreateWilder() {
           <Link to="/">
             <button className="WilderFormButton">Annuler</button>
           </Link>
-          
         </div>
       </form>
+      <ToastContainer />
     </>
   )
 }
