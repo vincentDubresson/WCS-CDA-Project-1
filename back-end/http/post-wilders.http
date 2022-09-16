@@ -5,6 +5,36 @@ Content-Type: application/json
   "firstName": "Jane",
   "lastName": "Doe",
   "description": "Lorem Ipsum",
-  "school": "fe6cb091-3623-4585-bd96-2928609d979b",
-  "skills": ["24117d50-cdd0-4c52-8af0-b43bb1de5ebf"]
+  "isTeacher": true,
+  "school": "WCS-LYON",
+  "skills": [
+          {
+            "skillName": "C#",
+            "skillScore": 1
+          },
+          {
+            "skillName": "Ruby",
+            "skillScore": 3
+          },
+          {
+            "skillName": "PHP",
+            "skillScore": 5
+          },
+          {
+            "skillName": "Java",
+            "skillScore": 2
+          },
+          {
+            "skillName": "Python",
+            "skillScore": 4
+          },
+          {
+            "skillName": "C+",
+            "skillScore": 1
+          },
+          {
+            "skillName": "JS",
+            "skillScore": 2
+          }
+        ]
 }

@@ -21,7 +21,7 @@ async function initializeSkill() {
 }
 
 // On récupère l'école par son nom + note au hasard
-async function getSkillByName(name) {
+async function getRandomSkillByName(name) {
   const skillRepository = await getSkillRepository();
   const score = Math.floor(Math.random() * 5) + 1;
   return await skillRepository.findOne({ 
@@ -32,8 +32,19 @@ async function getSkillByName(name) {
    });
 }
 
+async function getSkillByName(name, score) {
+  const skillRepository = await getSkillRepository();
+  return await skillRepository.findOne({ 
+    where: {
+      skillName: name,
+      skillScore: score
+    }
+   });
+}
+
 module.exports = {
   initializeSkill,
+  getRandomSkillByName,
   getSkillByName,
   skills,
 }

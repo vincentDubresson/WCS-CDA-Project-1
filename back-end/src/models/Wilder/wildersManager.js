@@ -1,6 +1,6 @@
 const { getWilderRepository, getSkillRepository } = require("../../database/utils");
 const { getSchoolByName } = require("../School/schoolManager");
-const { getSkillByName } = require("../Skill/skillsManager");
+const { getRandomSkillByName, getSkillByName } = require("../Skill/skillsManager");
 const { wildersArray } = require("./wildersFixtures");
 
 
@@ -15,7 +15,7 @@ async function initializeWilders() {
 
     const wilderSkills = [];
     for (skill of wilder.skills) {
-      wilderSkills.push(await getSkillByName(skill));
+      wilderSkills.push(await getRandomSkillByName(skill));
     }
     //const wilderSkills = await getSkillByName(wilder.skills);
     await wilderRepository.save({
@@ -46,9 +46,27 @@ async function getWilderById(id) {
 }
 
 // Requête pour créer un nouveau wilder
-async function createWilder(firstName, lastName, description, school, skills) {
+async function createWilder(
+  wilderFirstname,
+  wilderLastname,
+  wilderDescription,
+  wilderIsTeacher,
+  schoolName,
+  wilderSkillsDatas) {
   const wilderRepository = await getWilderRepository();
-  const newWilder = wilderRepository.create({ firstName, lastName, description, school, skills });
+  const wilderSchool = await getSchoolByName(schoolName);
+  const wilderSkills = [];
+  for (skill of wilderSkillsDatas) {
+    wilderSkills.push(await getSkillByName(skill.skillName, skill.skillScore));
+  }
+  const newWilder = wilderRepository.create({
+    firstName: wilderFirstname,
+    lastName: wilderLastname,
+    description: wilderDescription,
+    isTeacher: wilderIsTeacher,
+    school: wilderSchool,
+    skills: wilderSkills,
+  });
   await wilderRepository.save(newWilder);
   return newWilder;
 }
