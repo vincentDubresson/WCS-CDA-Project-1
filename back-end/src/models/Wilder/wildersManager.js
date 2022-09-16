@@ -17,7 +17,6 @@ async function initializeWilders() {
     for (skill of wilder.skills) {
       wilderSkills.push(await getRandomSkillByName(skill));
     }
-    //const wilderSkills = await getSkillByName(wilder.skills);
     await wilderRepository.save({
       firstName: wilder.firstName,
       lastName: wilder.lastName,
