@@ -1,0 +1,169 @@
+@import '../../index.scss';
+
+.UpdateWilderTitle {
+  margin-bottom: 30px;
+}
+
+.WilderForm {
+  background-color: $bgGrey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+  gap: 30px;
+  border-radius: 7px;
+  border: 1px solid $salmonColor;
+  box-shadow: $mediumShadow;
+
+  .WilderFormFieldset {
+    width: 90%;
+    border: 1px solid $salmonColor;
+
+    .WilderFormFieldsetLegend {
+      color: $salmonColor;
+      font-weight: 600;
+    }
+  }
+
+  .InfoFieldset {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .WilderFormTextLabel {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 250px;
+      height: 40px;
+      gap: 10px;
+      font-weight: 600;
+
+      .WilderFormTextInput {
+        height: 20px;
+        border: 1px solid $salmonColor;
+        padding-left: 5px;
+      } 
+    }
+  }
+
+  .DetailsFieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 15px;
+
+    .WilderFormTextareaLabel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 70%;
+      font-weight: 600;
+
+      .WilderFormTextarea {
+        width: 100%;
+        height: 100px;
+        resize: none;
+        border: 1px solid $salmonColor;
+        padding: 5px 5px;
+      }
+    }
+
+    .WilderFormFileLabel {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 40px;
+      gap: 10px;
+      font-weight: 600;
+    }
+  }
+
+  .SchoolFieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    .WilderFormSelectLabel {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 40px;
+      gap: 10px;
+      font-weight: 600;
+
+      .WilderFormSelect {
+        height: 28px;
+        border: 1px solid $salmonColor;
+        padding: 5px;
+      }
+    }
+
+    .WilderFormRadioContainer {
+      display: flex;
+      flex-direction: column;
+
+      .WilderFormRadioTitle {
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+
+      .WilderFormRadio {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+    }
+  }
+
+  .TechFieldset {
+    display: flex;
+    flex-direction: column;
+
+    .WilderFormRangeContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 5px;
+
+      .WilderFormRangeLabel {
+        display: flex;
+        justify-content: space-between;
+        width: 210px;
+
+        WilderFormRangeInput {
+          color: $salmonColor;
+        }
+      }
+    }
+  }
+
+  .WilderFormButtonsContainer {
+    display: flex;
+    gap: 20px;
+
+    .WilderFormButton {
+      cursor: pointer;
+      background-color: rgba(247, 108, 108, 0.2);
+      display: inline-block;
+      padding: 0.5em 3em;
+      border-radius: 4px;
+      text-decoration: none;
+      border: 1px solid $salmonColor;
+      transition: 0.3s;
+  
+      &:hover {
+        background-color: rgba(247, 108, 108, 0.4);
+      }
+    }
+  }
+}

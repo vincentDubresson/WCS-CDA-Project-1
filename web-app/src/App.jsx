@@ -2,7 +2,8 @@ import { Routes, Route, Link } from 'react-router-dom';
 import './App.scss';
 import CreateWilder from './pages/CreateWilder/CreateWilder';
 import Home from './pages/Home/Home';
-import { HOME_PATH, CREATE_WILDER_PATH } from './pages/paths';
+import { HOME_PATH, CREATE_WILDER_PATH, UPDATE_WILDER_PATH } from './pages/paths';
+import UpdateWilder from './pages/UpdateWilder/UpdateWilder';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path={HOME_PATH} element={<Home />} />
           <Route path={CREATE_WILDER_PATH} element={<CreateWilder />} />
+          <Route path={UPDATE_WILDER_PATH} element={<UpdateWilder/>} />
         </Routes>
       </main>
       <footer className="AppFooter">

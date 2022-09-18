@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import './WilderCardOptions.scss';
 import closeIcon from '../../assets/icons/closeDark.png';
 
-export default function WilderCardOptions({ dynamicClass, callback }) {
+export default function WilderCardOptions({ dynamicClass, wilderId, callback }) {
   
   const closeWilderOptionsList = () => {
     callback("WilderCardOptionsContainer");
@@ -16,7 +16,7 @@ export default function WilderCardOptions({ dynamicClass, callback }) {
         alt="wilder options close icon"
         onClick={() => {closeWilderOptionsList()}}
         />
-      <Link className="WilderCardOptionsLink" to="/">Modifier le Wilder</Link>
+      <Link className="WilderCardOptionsLink" to={`/update-wilder/${wilderId}`}>Modifier le Wilder</Link>
       <Link className="WilderCardOptionsLink" to="/">Supprimer le Wilder</Link>
     </div>
   )

@@ -41,6 +41,7 @@ export default function Home() {
           wildersList.map((wilder) => (
             <Wilder
               key={wilder.id}
+              id={wilder.id}
               firstName={wilder.firstName}
               lastName={wilder.lastName}
               description={wilder.description}

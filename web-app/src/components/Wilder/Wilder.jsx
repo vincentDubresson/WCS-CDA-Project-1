@@ -6,6 +6,7 @@ import WilderCardOptions from '../WilderCardOptions/WilderCardOptions';
 import { useState } from 'react';
 
 export default function Wilder({
+  id,
   firstName,
   lastName,
   description,
@@ -15,7 +16,7 @@ export default function Wilder({
   skills
 }) {
   const [optionListClass, setOptionListClass] = useState('WilderCardOptionsContainer');
-  
+
   const openWilderOptionsList = () => {
     setOptionListClass('WilderCardOptionsContainer OptionsDisplay');  
   }
@@ -37,6 +38,7 @@ export default function Wilder({
         />
       <WilderCardOptions
         dynamicClass={optionListClass}
+        wilderId={id}
         callback={wilderCardOptionsCallback}/>
       <img className="WilderCardPicture" src={picture} alt={`${firstName} ${lastName} profile`} />
       <h3 className="WilderCardName">{firstName} {lastName}</h3>
