@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import './WilderCardOptions.scss';
 import closeIcon from '../../assets/icons/closeDark.png';
-import { useState } from "react";
 
 export default function WilderCardOptions({ dynamicClass, callback }) {
   
