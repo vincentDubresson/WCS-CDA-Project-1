@@ -17,7 +17,7 @@ export default function WilderCardOptions({ dynamicClass, wilderId, callback }) 
         onClick={() => {closeWilderOptionsList()}}
         />
       <Link className="WilderCardOptionsLink" to={`/update-wilder/${wilderId}`}>Modifier le Wilder</Link>
-      <Link className="WilderCardOptionsLink" to="/">Supprimer le Wilder</Link>
+      <Link className="WilderCardOptionsLink" to={`/delete-wilder/${wilderId}`}>Supprimer le Wilder</Link>
     </div>
   )
 }
