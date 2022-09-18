@@ -1,0 +1,38 @@
+@import "../../index.scss";
+
+.WilderCardOptionsContainer {
+  background-color: $bgLight;
+  position: absolute;
+  top: 10px;
+  right: -190px; //10
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 15px 35px 15px 20px;
+  border-radius: 5px;
+  border: 1px solid $bgSalmon;
+  z-index: 1;
+  transition: 0.3s;
+
+  .WilderCardOptionsClose {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+  }
+
+  .WilderCardOptionsLink {
+    text-decoration: none;
+    color: $darkColor;
+    font-size: 14px;
+
+    &:nth-child(3) {
+      color: rgb(207, 0, 0);
+    }
+  }
+}
+
+.OptionsDisplay {
+  right: 10px;
+}

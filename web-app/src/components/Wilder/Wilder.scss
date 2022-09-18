@@ -18,9 +18,16 @@
   .WilderCardTeacherStamp {
     position: absolute;
     top: 0px;
-    right: -25px;
+    left: -25px;
     width: 170px;
     z-index: 1;
+  }
+
+  .WilderCardOptionsIcon {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 10px;
   }
 
   .WilderCardPicture {
