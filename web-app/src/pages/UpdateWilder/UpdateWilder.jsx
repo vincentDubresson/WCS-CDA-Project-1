@@ -28,7 +28,6 @@ export default function UpdateWilder() {
   const [skillScoreCsharp, setSkillScoreCsharp] = useState(1);
   const skillRuby = "Ruby";
   const [skillScoreRuby, setSkillScoreRuby] = useState(1);
-  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -36,10 +35,12 @@ export default function UpdateWilder() {
         const fetchedWilder = await fetchWilder(id);
         setWilderById(fetchedWilder);
       } catch (error) {
-        setErrorMessage(error.message);
+        console.log(error.message);
       }
     })();
   }, [id]);
+
+  console.log(wilderById);
 
 /*   useEffect(() => {
     (async () => {
