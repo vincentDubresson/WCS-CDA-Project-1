@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { HOME_PATH } from '../paths';
-
-import './UpdateWilder.scss';
 import { fetchWilder, updateWilder } from './rest';
-import { useEffect } from 'react';
+
+import "react-toastify/dist/ReactToastify.css";
+import './UpdateWilder.scss';
+
 
 export default function UpdateWilder() {
   const { id } = useParams();
