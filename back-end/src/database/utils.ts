@@ -1,4 +1,4 @@
-import { DataSource } from 'typeorm';
+import { DataSource } from "typeorm";
 import Wilder from "../models/Wilder/wildersEntity";
 import School from "../models/School/schoolsEntity";
 import Skill from "../models/Skill/skillsEntity";
@@ -46,4 +46,4 @@ export {
   getWilderRepository,
   getSchoolRepository,
   getSkillRepository,
-}
+};

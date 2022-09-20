@@ -12,25 +12,27 @@ async function initializeWilders() {
   await wilderRepository.clear();
 
   // On insère ici un fake dataset
-  await Promise.all(wildersArray.map(async (wilder) => {
-    const wilderSchool = await getSchoolByName(wilder.school) as School;
+  await Promise.all(
+    wildersArray.map(async (wilder) => {
+      const wilderSchool = (await getSchoolByName(wilder.school)) as School;
 
-    const wilderSkills = [];
-    for (const skill of wilder.skills) {
-      wilderSkills.push(await getRandomSkillByName(skill) as Skill);
-    }
-    const newWilder = new Wilder(
-      wilder.firstName,
-      wilder.lastName,
-      wilder.description,
-      wilder.isTeacher,
-      wilder.picture,
-      wilderSchool,
-      wilderSkills
-    );
-    
-    await wilderRepository.save(newWilder);
-  }));
+      const wilderSkills = [];
+      for (const skill of wilder.skills) {
+        wilderSkills.push((await getRandomSkillByName(skill)) as Skill);
+      }
+      const newWilder = new Wilder(
+        wilder.firstName,
+        wilder.lastName,
+        wilder.description,
+        wilder.isTeacher,
+        wilder.picture,
+        wilderSchool,
+        wilderSkills
+      );
+
+      await wilderRepository.save(newWilder);
+    })
+  );
 }
 
 // Requête pour récupérer la liste des Wilders
@@ -57,12 +59,18 @@ async function createWilder(
   wilderIsTeacher: boolean,
   wilderPicture: string,
   schoolName: string,
-  wilderSkillsDatas: {skillName: string, skillScore: number}[]) {
+  wilderSkillsDatas: { skillName: string; skillScore: number }[]
+) {
   const wilderRepository = await getWilderRepository();
-  const wilderSchool = await getSchoolByName(schoolName) as School;
+  const wilderSchool = (await getSchoolByName(schoolName)) as School;
   const wilderSkills = [];
   for (const skillDatas of wilderSkillsDatas) {
-    wilderSkills.push(await getSkillByName(skillDatas.skillName, skillDatas.skillScore) as Skill);
+    wilderSkills.push(
+      (await getSkillByName(
+        skillDatas.skillName,
+        skillDatas.skillScore
+      )) as Skill
+    );
   }
   const newWilder = new Wilder(
     wilderFirstname,
@@ -73,7 +81,7 @@ async function createWilder(
     wilderSchool,
     wilderSkills
   );
-  
+
   await wilderRepository.save(newWilder);
   return newWilder;
 }
@@ -85,13 +93,11 @@ async function updateWilder(id: string, firstName: string, lastName: string) {
   if (!wilder) {
     throw Error("No existing Wilder matching ID.");
   }
-  const updateWilder = wilderRepository.save(
-    {
-      id,
-      firstName,
-      lastName,
-    }
-  );
+  const updateWilder = wilderRepository.save({
+    id,
+    firstName,
+    lastName,
+  });
   return updateWilder;
 }
 

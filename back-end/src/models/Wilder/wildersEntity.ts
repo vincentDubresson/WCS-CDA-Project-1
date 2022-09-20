@@ -47,7 +47,7 @@ export default class Wilder {
   @Column()
   description: string;
 
-  @Column({default: "http://placeimg.com/300/300/people"})
+  @Column({ default: "http://placeimg.com/300/300/people" })
   picture: string;
 
   @Column()

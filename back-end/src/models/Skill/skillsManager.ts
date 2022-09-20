@@ -1,14 +1,6 @@
 import { getSkillRepository } from "../../database/utils";
 
-const skills = [
-  "C+",
-  "Ruby",
-  "C#",
-  "Python",
-  "Java",
-  "JS",
-  "PHP",
-];
+const skills = ["C+", "Ruby", "C#", "Python", "Java", "JS", "PHP"];
 
 async function initializeSkill() {
   const skillRepository = await getSkillRepository();
@@ -24,27 +16,22 @@ async function initializeSkill() {
 async function getRandomSkillByName(name: string) {
   const skillRepository = await getSkillRepository();
   const score = Math.floor(Math.random() * 5) + 1;
-  return await skillRepository.findOne({ 
+  return await skillRepository.findOne({
     where: {
       skillName: name,
-      skillScore: score
-    }
-   });
+      skillScore: score,
+    },
+  });
 }
 
 async function getSkillByName(name: string, score: number) {
   const skillRepository = await getSkillRepository();
-  return await skillRepository.findOne({ 
+  return await skillRepository.findOne({
     where: {
       skillName: name,
-      skillScore: score
-    }
-   });
+      skillScore: score,
+    },
+  });
 }
 
-export {
-  initializeSkill,
-  getRandomSkillByName,
-  getSkillByName,
-  skills,
-}
+export { initializeSkill, getRandomSkillByName, getSkillByName, skills };

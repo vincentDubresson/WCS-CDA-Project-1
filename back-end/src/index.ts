@@ -1,8 +1,8 @@
-import express from 'express';
-import * as wildersController from './controllers/wildersController';
+import express from "express";
+import * as wildersController from "./controllers/wildersController";
 import { initializeWilders } from "./models/Wilder/wildersManager";
 import { initializeSchool } from "./models/School/schoolManager";
-import { initializeSkill } from './models/Skill/skillsManager';
+import { initializeSkill } from "./models/Skill/skillsManager";
 import { getDatabase } from "./database/utils";
 
 // On crée le Serveur
@@ -11,13 +11,13 @@ app.use(express.json());
 
 // On crée les routes sans oublier de tester en HTTP
 app.get("/", function (req, res) {
-  res.send("Hello World !!")
+  res.send("Hello World !!");
 });
 
 // On crée le CRUD pour l'entité Wilders
 const API_WILDERS_PATH = "/api/wilders";
 app.get(API_WILDERS_PATH, wildersController.get);
-app.get(`${API_WILDERS_PATH}/:id`, wildersController.getById)
+app.get(`${API_WILDERS_PATH}/:id`, wildersController.getById);
 app.post(API_WILDERS_PATH, wildersController.post);
 app.put(`${API_WILDERS_PATH}/:id`, wildersController.put);
 app.delete(`${API_WILDERS_PATH}/:id`, wildersController.del);
@@ -39,7 +39,3 @@ async function start() {
 }
 
 start();
-
-
-
-

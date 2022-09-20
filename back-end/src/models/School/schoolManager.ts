@@ -19,8 +19,4 @@ async function getSchoolByName(name: string) {
   return await schoolRepository.findOneBy({ schoolName: name });
 }
 
-export {
-  initializeSchool,
-  getSchoolByName,
-  schools,
-}
+export { initializeSchool, getSchoolByName, schools };
