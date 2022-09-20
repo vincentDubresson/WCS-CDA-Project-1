@@ -6,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Length, Min } from "class-validator";
 import School from "../School/schoolsEntity";
 import Skill from "../Skill/skillsEntity";
 
@@ -39,15 +40,19 @@ export default class Wilder {
   id: string;
 
   @Column()
+  @Length(1, 255)
   firstName: string;
 
   @Column()
+  @Length(1, 255)
   lastName: string;
 
   @Column()
+  @Min(1)
   description: string;
 
   @Column({ default: "http://placeimg.com/300/300/people" })
+  @Length(1, 255)
   picture: string;
 
   @Column()

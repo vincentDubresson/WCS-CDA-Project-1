@@ -5,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Contains, Length } from "class-validator";
 import Wilder from "../Wilder/wildersEntity";
 
 @Entity()
@@ -14,6 +15,8 @@ export default class School {
 
   @Column()
   @Index({ unique: true })
+  @Contains("WCS-")
+  @Length(5, 255)
   schoolName: string;
 
   @OneToMany(() => Wilder, (wilder) => wilder.school)
