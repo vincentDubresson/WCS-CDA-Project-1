@@ -1,4 +1,4 @@
-const { getSchoolRepository, getWilderRepository } = require("../../database/utils");
+import { getSchoolRepository, getWilderRepository } from "../../database/utils";
 
 const schools = ["WCS-Lyon", "WCS-Bordeaux", "WCS-Paris", "WCS-La-Loupe"];
 
@@ -14,12 +14,12 @@ async function initializeSchool() {
 }
 
 // On récupère l'école par son nom
-async function getSchoolByName(name) {
+async function getSchoolByName(name: string) {
   const schoolRepository = await getSchoolRepository();
   return await schoolRepository.findOneBy({ schoolName: name });
 }
 
-module.exports = {
+export {
   initializeSchool,
   getSchoolByName,
   schools,

@@ -1,10 +1,10 @@
-const { schools } = require("../School/schoolManager");
-const { skills } = require("../Skill/skillsManager");
-const { faker } = require("@faker-js/faker");
-const { randomInArray } = require("./WildersService");
+import { schools } from "../School/schoolManager";
+import { skills } from "../Skill/skillsManager";
+import { faker } from "@faker-js/faker";
+import { randomInArray } from "./WildersService";
 
 // Fonction utilisée pour créer un jeu de données en faker
-const wildersFixtures = (schools, skills) => {
+const wildersFixtures = (schools: string[], skills: string[]) => {
 let wildersArray = [];
 for (let i = 1; i <= 50; i++) {
     const isTeacher = !(i % 10);
@@ -23,6 +23,6 @@ for (let i = 1; i <= 50; i++) {
 
 const wildersArray = wildersFixtures(schools, skills);
 
-module.exports = {
+export {
   wildersArray,
 }

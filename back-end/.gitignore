@@ -1,5 +1,6 @@
 # Dépendances
 node_modules/
+dist
 
 # NoSql
 WCS-CDA-Project-1.sqlite

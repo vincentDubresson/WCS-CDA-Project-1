@@ -1,4 +1,4 @@
-const { getSkillRepository } = require("../../database/utils");
+import { getSkillRepository } from "../../database/utils";
 
 const skills = [
   "C+",
@@ -21,7 +21,7 @@ async function initializeSkill() {
 }
 
 // On récupère l'école par son nom + note au hasard
-async function getRandomSkillByName(name) {
+async function getRandomSkillByName(name: string) {
   const skillRepository = await getSkillRepository();
   const score = Math.floor(Math.random() * 5) + 1;
   return await skillRepository.findOne({ 
@@ -32,7 +32,7 @@ async function getRandomSkillByName(name) {
    });
 }
 
-async function getSkillByName(name, score) {
+async function getSkillByName(name: string, score: number) {
   const skillRepository = await getSkillRepository();
   return await skillRepository.findOne({ 
     where: {
@@ -42,7 +42,7 @@ async function getSkillByName(name, score) {
    });
 }
 
-module.exports = {
+export {
   initializeSkill,
   getRandomSkillByName,
   getSkillByName,

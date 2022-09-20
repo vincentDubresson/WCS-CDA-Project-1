@@ -1,9 +1,9 @@
-const express = require('express');
-const wildersController = require('./controllers/wildersController');
-const { initializeWilders } = require("./models/Wilder/wildersManager");
-const { initializeSchool } = require("./models/School/schoolManager");
-const { initializeSkill } = require('./models/Skill/skillsManager');
-const { getDatabase } = require("./database/utils");
+import express from 'express';
+import * as wildersController from './controllers/wildersController';
+import { initializeWilders } from "./models/Wilder/wildersManager";
+import { initializeSchool } from "./models/School/schoolManager";
+import { initializeSkill } from './models/Skill/skillsManager';
+import { getDatabase } from "./database/utils";
 
 // On crée le Serveur
 const app = express();

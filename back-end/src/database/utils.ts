@@ -1,10 +1,10 @@
-const typeorm = require('typeorm');
-const Wilder = require("../models/Wilder/wildersEntity");
-const School = require("../models/School/schoolsEntity");
-const Skill = require("../models/Skill/skillsEntity");
+import { DataSource } from 'typeorm';
+import Wilder from "../models/Wilder/wildersEntity";
+import School from "../models/School/schoolsEntity";
+import Skill from "../models/Skill/skillsEntity";
 
 // On crée ou on va chercher la base de données.
-const dataSource = new typeorm.DataSource({
+const dataSource = new DataSource({
   type: "sqlite",
   database: "./WCS-CDA-Project-1.sqlite",
   // Ne jamais mettre l'option ci-dessous en prod
@@ -41,7 +41,7 @@ async function getSkillRepository() {
   return (await getDatabase()).getRepository(Skill);
 }
 
-module.exports = {
+export {
   getDatabase,
   getWilderRepository,
   getSchoolRepository,
