@@ -5,6 +5,7 @@ import Skill from "../Skill/skillsEntity";
 import { getRandomSkillByName, getSkillByName } from "../Skill/skillsManager";
 import Wilder from "./wildersEntity";
 import { wildersArray } from "./wildersFixtures";
+import { validateOrRejectExample } from "./WildersService";
 
 // Requête pour initialiser la BDD au lancement du serveur
 async function initializeWilders() {
@@ -81,9 +82,19 @@ async function createWilder(
     wilderSchool,
     wilderSkills
   );
-
-  await wilderRepository.save(newWilder);
-  return newWilder;
+  const errors = await validateOrRejectExample(newWilder);
+  if (errors) {
+    let errorList = "";
+    for (const error of errors) {
+      for (const constraint of Object.values(error.constraints)) {
+        errorList += ` --- ${constraint} --- </br>`;
+      }
+    }
+    throw Error(errorList);
+  } else {
+    await wilderRepository.save(newWilder);
+    return newWilder;
+  }
 }
 
 // Requête pour modifier un wilder

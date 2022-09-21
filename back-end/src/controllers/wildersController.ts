@@ -37,9 +37,7 @@ export const post = async (req: Request, res: Response): Promise<void> => {
     schoolName,
     skills,
   } = req.body;
-  if (!firstName || !lastName) {
-    res.status(404).json({ error: "Firstname and lastname are mandatory." });
-  } else {
+  try {
     const newWilder = await createWilder(
       firstName,
       lastName,
@@ -50,6 +48,8 @@ export const post = async (req: Request, res: Response): Promise<void> => {
       skills
     );
     res.status(201).json(newWilder);
+  } catch (error) {
+    res.status(404).json({ error: getErrorMessage(error) });
   }
 };
 
