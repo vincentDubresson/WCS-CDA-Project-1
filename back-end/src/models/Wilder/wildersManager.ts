@@ -87,7 +87,7 @@ async function createWilder(
     let errorList = "";
     for (const error of errors) {
       for (const constraint of Object.values(error.constraints)) {
-        errorList += ` --- ${constraint} --- </br>`;
+        errorList += ` - ${constraint} -`;
       }
     }
     throw Error(errorList);
