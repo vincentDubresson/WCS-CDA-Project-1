@@ -1,9 +1,11 @@
 import express from "express";
 import * as wildersController from "./controllers/wildersController";
-import { initializeWilders } from "./models/Wilder/wildersManager";
-import { initializeSchool } from "./models/School/schoolManager";
-import { initializeSkill } from "./models/Skill/skillsManager";
-import { getDatabase } from "./database/utils";
+import { skills } from "./models/Skill/Skill.service";
+import { schools } from "./models/School/School.service";
+import { wildersArray } from "./models/Wilder/Wilder.fixtures";
+import SkillRepository from "./models/Skill/Skill.repository";
+import SchoolRepository from "./models/School/School.repository";
+import WilderRepository from "./models/Wilder/Wilder.repository";
 
 // On crée le Serveur
 const app = express();
@@ -27,12 +29,15 @@ app.post(`${API_WILDERS_PATH}/:id/skills`, wildersController.addSkill);
 const PORT = 4000;
 // Fonction pour démarrer le serveur
 async function start() {
+  await SkillRepository.initializeRepository();
+  await SchoolRepository.initializeRepository();
+  await WilderRepository.initializeRepository();
   // On attend l'initialisation de la BDD.
-  await initializeSkill();
-  await initializeSchool();
-  await initializeWilders();
+  await SkillRepository.initializeSkill(skills);
+  await SchoolRepository.initializeSchool(schools);
+  await WilderRepository.initializeWilders(wildersArray);
   // On efface et récupère les données de la BDD.
-  await getDatabase();
+  //await getDatabase();
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} 👍`);
   });

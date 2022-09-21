@@ -1,7 +1,7 @@
-import { schools } from "../School/schoolManager";
-import { skills } from "../Skill/skillsManager";
+import { schools } from "../School/School.service";
+import { skills } from "../Skill/Skill.service";
 import { faker } from "@faker-js/faker";
-import { randomInArray } from "./WildersService";
+import { randomInArray } from "./Wilder.service";
 
 // Fonction utilisée pour créer un jeu de données en faker
 const wildersFixtures = (schools: string[], skills: string[]) => {

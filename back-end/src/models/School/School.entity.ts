@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Contains, Length } from "class-validator";
-import Wilder from "../Wilder/wildersEntity";
+import Wilder from "../Wilder/Wilder.entity";
 
 @Entity()
 export default class School {

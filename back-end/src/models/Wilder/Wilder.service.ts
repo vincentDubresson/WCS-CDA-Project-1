@@ -1,4 +1,4 @@
-import Wilder from "./wildersEntity";
+import Wilder from "./Wilder.entity";
 import { validateOrReject } from "class-validator";
 
 // Fonction de select random dans un tableau

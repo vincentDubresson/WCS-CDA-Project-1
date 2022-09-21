@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Length, MinLength } from "class-validator";
-import School from "../School/schoolsEntity";
-import Skill from "../Skill/skillsEntity";
+import School from "../School/School.entity";
+import Skill from "../Skill/Skill.entity";
 
 @Entity()
 export default class Wilder {
