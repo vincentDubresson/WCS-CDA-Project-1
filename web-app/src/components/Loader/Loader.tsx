@@ -1,12 +1,12 @@
-import './Loader.scss';
+import "./Loader.scss";
 
 export default function Loader() {
-  return(
+  return (
     <div className="LoaderCSS">
       <div></div>
       <div></div>
       <div></div>
       <div></div>
     </div>
-  )
+  );
 }

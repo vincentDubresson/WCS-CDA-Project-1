@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Loader from '../../components/Loader/Loader';
-import NoWilder from '../../components/NoWilder/NoWilder';
-import Wilder from "../../components/Wilder/Wilder";
+//import React from 'react';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
+import NoWilder from "../../components/NoWilder/NoWilder";
+//import Wilder from "../../components/Wilder/Wilder";
 import { CREATE_WILDER_PATH } from "../paths";
 import { fetchWilders } from "./rest";
-import './Home.scss';
+import "./Home.scss";
+import { getErrorMessage } from "../../utils";
+import WilderCard from "../../components/Wilder/Wilder";
 
 export default function Home() {
-  const [wildersList, setWildersList] = useState(null);
+  const [wildersList, setWildersList] = useState<null | any[]>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -18,7 +21,7 @@ export default function Home() {
         const fetchedWilders = await fetchWilders();
         setWildersList(fetchedWilders);
       } catch (error) {
-        setErrorMessage(error.message);
+        setErrorMessage(getErrorMessage(error));
       } finally {
         setIsLoading(false);
       }
@@ -37,24 +40,22 @@ export default function Home() {
     }
     return (
       <section className="CardsSection">
-        {
-          wildersList.map((wilder) => (
-            <Wilder
-              key={wilder.id}
-              id={wilder.id}
-              firstName={wilder.firstName}
-              lastName={wilder.lastName}
-              description={wilder.description}
-              picture={wilder.picture}
-              isTeacher={wilder.isTeacher}
-              school={wilder.school}
-              skills={wilder.skills}
-            />
-          ))
-        }
+        {wildersList.map((wilder) => (
+          <WilderCard
+            key={wilder.id}
+            id={wilder.id}
+            firstName={wilder.firstName}
+            lastName={wilder.lastName}
+            description={wilder.description}
+            picture={wilder.picture}
+            isTeacher={wilder.isTeacher}
+            school={wilder.school}
+            skills={wilder.skills}
+          />
+        ))}
       </section>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -64,5 +65,5 @@ export default function Home() {
       </Link>
       {renderMainContent()}
     </>
-  )
+  );
 }
