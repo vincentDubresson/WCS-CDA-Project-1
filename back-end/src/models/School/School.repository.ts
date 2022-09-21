@@ -16,9 +16,9 @@ export default class SchoolRepository extends School {
   static async initializeSchool(schools: string[]): Promise<void> {
     await WilderRepository.clearRepository();
     await this.repository.clear();
-    schools.forEach(async (school) => {
-      await this.repository.save({ schoolName: school });
-    });
+    for (const school of schools) {
+      await this.repository.save({ schoolName: school })
+    }
   }
 
   static async getSchoolByName(name: string): Promise<School | null> {
