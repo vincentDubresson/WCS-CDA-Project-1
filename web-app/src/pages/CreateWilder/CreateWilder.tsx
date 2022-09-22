@@ -66,7 +66,7 @@ export default function CreateWilder() {
         className="WilderForm"
         onSubmit={async (e) => {
           e.preventDefault();
-          await handleSubmit();
+          selectedSkills ? await handleSubmit() : toast.error('Merci de choisir au moins une compétence technique.');
         }}
       >
         <fieldset className="WilderFormFieldset InfoFieldset">
@@ -131,11 +131,11 @@ export default function CreateWilder() {
               }}
               required
             >
-              <option defaultValue="">Choisir une école</option>
-              <option defaultValue="WCS-Lyon">WCS-Lyon</option>
-              <option defaultValue="WCS-Paris">WCS-Paris</option>
-              <option defaultValue="WCS-Bordeaux">WCS-Bordeaux</option>
-              <option defaultValue="WCS-La-Loupe">WCS-La-Loupe</option>
+              <option value="">Choisir une école</option>
+              <option value="WCS-Lyon">WCS-Lyon</option>
+              <option value="WCS-Paris">WCS-Paris</option>
+              <option value="WCS-Bordeaux">WCS-Bordeaux</option>
+              <option value="WCS-La-Loupe">WCS-La-Loupe</option>
             </select>
           </label>
           <div className="WilderFormRadioContainer">

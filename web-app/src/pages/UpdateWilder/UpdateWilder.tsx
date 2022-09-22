@@ -13,7 +13,7 @@ import { Wilder } from "../../data/types";
 export default function UpdateWilder() {
   const { id } = useParams();
   const [wilderById, setWilderById] = useState<null | Wilder>(null);
-  const [firstName, setFirstName] = useState("");
+  const [firstName, setFirstName] = useState(wilderById?.firstName);
   const [lastName, setLastName] = useState("");
   const [description, setDescription] = useState("");
   const [schoolName, setSchoolName] = useState("");
@@ -31,6 +31,7 @@ export default function UpdateWilder() {
   const skillRuby = "Ruby";
   const [skillScoreRuby, setSkillScoreRuby] = useState<string | number>(1);
 
+
   useEffect(() => {
     (async () => {
       try {
@@ -43,16 +44,6 @@ export default function UpdateWilder() {
   }, [id]);
 
   console.log({ wilderById });
-
-  /*   useEffect(() => {
-    (async () => {
-      setFirstName(wilderById.firstName);
-      setLastName(wilderById.lastName);
-      setDescription(wilderById.description);
-      setSchoolName(wilderById.school.schoolName);
-      setIsTeacher(wilderById.isTeacher);
-    })();
-  }, [wilderById]); */
 
   const skills = [
     {
@@ -89,11 +80,11 @@ export default function UpdateWilder() {
     try {
       console.log(skills);
       await updateWilder(
-        firstName,
-        lastName,
-        description,
-        isTeacher,
-        schoolName,
+        firstName as string,
+        lastName as string,
+        description as string,
+        isTeacher as boolean,
+        schoolName as string,
         skills
       );
       toast.success(`Wilder ${firstName} ${lastName} créé avec succès.`);
