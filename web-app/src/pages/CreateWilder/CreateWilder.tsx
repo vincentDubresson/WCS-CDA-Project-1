@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -18,14 +18,15 @@ export default function CreateWilder() {
   const [schoolName, setSchoolName] = useState("");
   const [isTeacher, setIsTeacher] = useState<null | boolean>(null);
   const [selectedSkills, setSelectedSkills] = useState<any>(null);
+  const navigate = useNavigate();
 
   const skillFunction = (selectedSkills: any[]) => {
     let skills: any = [];
-    selectedSkills.forEach(selectedSkill => {
-      skills.push({ skillName: `${selectedSkill.value}`},);
-    })
+    selectedSkills.forEach((selectedSkill) => {
+      skills.push({ skillName: `${selectedSkill.value}` });
+    });
     return skills;
-  }
+  };
 
   const initializeForm = () => {
     setFirstName("");
@@ -48,7 +49,11 @@ export default function CreateWilder() {
         skills
       );
       toast.success(`Wilder ${firstName} ${lastName} créé avec succès.`);
+      toast.success("Redirection vers la page d'accueil dans 5 secondes");
       initializeForm();
+      setTimeout(() => {
+        navigate("/");
+      }, 6000);
     } catch (error) {
       toast.error(getErrorMessage(error));
     }
@@ -144,6 +149,7 @@ export default function CreateWilder() {
                   onChange={() => {
                     setIsTeacher(true);
                   }}
+                  checked={isTeacher === true}
                   required
                 />
               </label>
@@ -155,6 +161,7 @@ export default function CreateWilder() {
                   onChange={() => {
                     setIsTeacher(false);
                   }}
+                  checked={isTeacher === false}
                 />
               </label>
             </div>
@@ -164,11 +171,13 @@ export default function CreateWilder() {
           <legend className="WilderFormFieldsetLegend">
             Compétences techniques
           </legend>
-          <div style={{zIndex: "3"}}>
+          <div style={{ zIndex: "3" }}>
             <Select
               options={skillArray}
+              value={selectedSkills}
               onChange={setSelectedSkills}
-              isMulti/>
+              isMulti
+            />
           </div>
         </fieldset>
         <div className="WilderFormButtonsContainer">

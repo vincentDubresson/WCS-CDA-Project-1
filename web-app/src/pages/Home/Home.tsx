@@ -1,10 +1,12 @@
 //import React from 'react';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+
 import Loader from "../../components/Loader/Loader";
 import NoWilder from "../../components/NoWilder/NoWilder";
 import { CREATE_WILDER_PATH } from "../paths";
-import { fetchWilders } from "./rest";
+import { deleteWilder, fetchWilders } from "./rest";
 import "./Home.scss";
 import { getErrorMessage } from "../../utils";
 import WilderCard from "../../components/Wilder/Wilder";
@@ -13,6 +15,21 @@ export default function Home() {
   const [wildersList, setWildersList] = useState<null | any[]>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const handleDeleteWilder = (id: string): void => {
+    if (window.confirm("Êtes-vous sûr de supprimer ce wilder ?")) {
+      (async () => {
+        try {
+          await deleteWilder(id);
+          const fetchedWilders = await fetchWilders();
+          setWildersList(fetchedWilders);
+          toast.success(`Suppression réussie`);
+        } catch (error) {
+          toast.error(getErrorMessage(error));
+        }
+      })();
+    }
+  }
 
   useEffect(() => {
     (async () => {
@@ -50,6 +67,7 @@ export default function Home() {
             isTeacher={wilder.isTeacher}
             school={wilder.school}
             skills={wilder.skills}
+            handleDeleteWilder={handleDeleteWilder}
           />
         ))}
       </section>
@@ -63,6 +81,7 @@ export default function Home() {
         <button className="HomeCreateButton">Ajouter un Wilder</button>
       </Link>
       {renderMainContent()}
+      <ToastContainer />
     </>
   );
 }

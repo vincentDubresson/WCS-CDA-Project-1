@@ -2,12 +2,18 @@ import { Link } from "react-router-dom";
 import "./WilderCardOptions.scss";
 import closeIcon from "../../assets/icons/closeDark.png";
 
-type PropType = { dynamicClass: string; wilderId: string; callback: Function };
+type PropType = {
+  dynamicClass: string;
+  wilderId: string;
+  callback: Function;
+  handleDeleteWilder: Function;
+};
 
 export default function WilderCardOptions({
   dynamicClass,
   wilderId,
   callback,
+  handleDeleteWilder,
 }: PropType) {
   const closeWilderOptionsList = () => {
     callback("WilderCardOptionsContainer");
@@ -26,9 +32,15 @@ export default function WilderCardOptions({
       <Link className="WilderCardOptionsLink" to={`/update-wilder/${wilderId}`}>
         Modifier le Wilder
       </Link>
-      <Link className="WilderCardOptionsLink" to={`/delete-wilder/${wilderId}`}>
+      <button
+        className="WilderCardDeleteButton"
+        onClick={() => {
+          callback("WilderCardOptionsContainer");
+          handleDeleteWilder(wilderId);
+        }}
+      >
         Supprimer le Wilder
-      </Link>
+      </button>
     </div>
   );
 }

@@ -15,7 +15,8 @@ export default function WilderCard({
   isTeacher,
   school,
   skills,
-}: Wilder) {
+  handleDeleteWilder,
+}: Wilder & { handleDeleteWilder: Function }) {
   const [optionListClass, setOptionListClass] = useState(
     "WilderCardOptionsContainer"
   );
@@ -49,6 +50,7 @@ export default function WilderCard({
         dynamicClass={optionListClass}
         wilderId={id}
         callback={wilderCardOptionsCallback}
+        handleDeleteWilder={handleDeleteWilder}
       />
       <img
         className="WilderCardPicture"
@@ -65,9 +67,7 @@ export default function WilderCard({
         {skills.map((skill) => {
           return (
             <li className="WilderCardSkills" key={skill.id}>
-              <Skills
-                skillName={skill.skillName}
-              />
+              <Skills skillName={skill.skillName} />
             </li>
           );
         })}
