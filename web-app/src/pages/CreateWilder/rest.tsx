@@ -7,7 +7,7 @@ export async function createWilder(
   description: string,
   isTeacher: null | boolean,
   schoolName: string,
-  skills: { skillName: string; skillScore: number | string }[]
+  skills: { skillName: string }[]
 ): Promise<Wilder> {
   return query(WILDERS_PATH, HTTPVerb.POST, {
     firstName,
