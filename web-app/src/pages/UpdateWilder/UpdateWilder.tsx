@@ -8,10 +8,11 @@ import { fetchWilder, updateWilder } from "./rest";
 import "react-toastify/dist/ReactToastify.css";
 import "./UpdateWilder.scss";
 import { getErrorMessage } from "../../utils";
+import { Wilder } from "../../data/types";
 
 export default function UpdateWilder() {
   const { id } = useParams();
-  const [wilderById, setWilderById] = useState("");
+  const [wilderById, setWilderById] = useState<null | Wilder>(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [description, setDescription] = useState("");
@@ -41,7 +42,7 @@ export default function UpdateWilder() {
     })();
   }, [id]);
 
-  console.log(wilderById);
+  console.log({ wilderById });
 
   /*   useEffect(() => {
     (async () => {
@@ -120,7 +121,7 @@ export default function UpdateWilder() {
             <input
               className="WilderFormTextInput"
               type="text"
-              value={firstName}
+              value={wilderById?.firstName}
               onChange={(e) => {
                 setFirstName(e.target.value);
               }}
@@ -132,7 +133,7 @@ export default function UpdateWilder() {
             <input
               className="WilderFormTextInput"
               type="text"
-              value={lastName}
+              value={wilderById?.lastName}
               onChange={(e) => {
                 setLastName(e.target.value);
               }}
@@ -146,7 +147,7 @@ export default function UpdateWilder() {
             Biographie
             <textarea
               className="WilderFormTextarea"
-              value={description}
+              value={wilderById?.description}
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
@@ -171,7 +172,7 @@ export default function UpdateWilder() {
             Centre de Formation
             <select
               className="WilderFormSelect"
-              value={schoolName}
+              value={wilderById?.school.schoolName}
               onChange={(e) => {
                 setSchoolName(e.target.value);
               }}
@@ -195,7 +196,7 @@ export default function UpdateWilder() {
                   onChange={() => {
                     setIsTeacher(true);
                   }}
-                  checked={isTeacher ? true : false}
+                  checked={wilderById?.isTeacher ? true : false}
                   required
                 />
               </label>
@@ -207,7 +208,7 @@ export default function UpdateWilder() {
                   onChange={() => {
                     setIsTeacher(false);
                   }}
-                  checked={isTeacher === false ? true : false}
+                  checked={wilderById?.isTeacher === false ? true : false}
                 />
               </label>
             </div>
@@ -218,106 +219,26 @@ export default function UpdateWilder() {
             Compétences techniques
           </legend>
           <div className="WilderFormRangeContainer">
-            <label className="WilderFormRangeLabel">
-              PHP
-              <input type="hidden" defaultValue="PHP" name="skillName" />
-              <input
-                className="WilderFormRangeInput"
-                type="range"
-                name="skillScore"
-                min="1"
-                max="5"
-                step="1"
-                value={skillScorePhp}
-                onChange={(e) => {
-                  setSkillScorePhp(e.target.value);
-                }}
-              />
-            </label>
-            <label className="WilderFormRangeLabel">
-              Javascript
-              <input type="hidden" defaultValue="JS" name="skillName" />
-              <input
-                className="WilderFormRangeInput"
-                type="range"
-                name="skillScore"
-                min="1"
-                max="5"
-                step="1"
-                value={skillScoreJs}
-                onChange={(e) => {
-                  setSkillScoreJs(e.target.value);
-                }}
-              />
-            </label>
-          </div>
-          <div className="WilderFormRangeContainer">
-            <label className="WilderFormRangeLabel">
-              Java
-              <input type="hidden" defaultValue="Java" name="skillName" />
-              <input
-                className="WilderFormRangeInput"
-                type="range"
-                name="skillScore"
-                min="1"
-                max="5"
-                step="1"
-                value={skillScoreJava}
-                onChange={(e) => {
-                  setSkillScoreJava(e.target.value);
-                }}
-              />
-            </label>
-            <label className="WilderFormRangeLabel">
-              Python
-              <input type="hidden" defaultValue="Python" name="skillName" />
-              <input
-                className="WilderFormRangeInput"
-                type="range"
-                name="skillScore"
-                min="1"
-                max="5"
-                step="1"
-                value={skillScorePython}
-                onChange={(e) => {
-                  setSkillScorePython(e.target.value);
-                }}
-              />
-            </label>
-          </div>
-          <div className="WilderFormRangeContainer">
-            <label className="WilderFormRangeLabel">
-              C#
-              <input type="hidden" defaultValue="C#" name="skillName" />
-              <input
-                className="WilderFormRangeInput"
-                type="range"
-                name="skillScore"
-                min="1"
-                max="5"
-                step="1"
-                value={skillScoreCsharp}
-                onChange={(e) => {
-                  setSkillScoreCsharp(e.target.value);
-                }}
-              />
-            </label>
-            <label className="WilderFormRangeLabel">
-              Ruby
-              <input type="hidden" defaultValue="Ruby" name="skillName" />
-              <input
-                className="WilderFormRangeInput"
-                type="range"
-                name="skillScore"
-                min="1"
-                max="5"
-                step="1"
-                value={skillScoreRuby}
-                onChange={(e) => {
-                  setSkillScoreRuby(e.target.value);
-                }}
-              />
-            </label>
+            {wilderById?.skills.map((skill) => {
+              return (
+                <label className="WilderFormRangeLabel">
+                  {skill.skillName}
+                  <input type="hidden" defaultValue="PHP" name="skillName" />
+                  <input
+                    className="WilderFormRangeInput"
+                    type="range"
+                    name="skillScore"
+                    min="1"
+                    max="5"
+                    step="1"
+                    value={skill.skillScore}
+                    onChange={(e) => {
+                      setSkillScorePhp(e.target.value);
+                    }}
+                  />
+                </label>
+              );
+            })}
           </div>
         </fieldset>
         <div className="WilderFormButtonsContainer">
