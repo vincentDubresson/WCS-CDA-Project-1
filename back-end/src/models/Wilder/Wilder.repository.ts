@@ -37,7 +37,7 @@ export default class WilderRepository extends Wilder {
         const wilderSkills = [];
         for (const skill of wilder.skills) {
           wilderSkills.push(
-            (await SkillRepository.getRandomSkillByName(skill)) as Skill
+            (await SkillRepository.getSkillByName(skill)) as Skill
           );
         }
         const newWilder = new Wilder(
@@ -73,7 +73,7 @@ export default class WilderRepository extends Wilder {
     wilderIsTeacher: boolean,
     wilderPicture: string,
     schoolName: string,
-    wilderSkillsDatas: { skillName: string; skillScore: number }[]
+    wilderSkillsDatas: { skillName: string; }[]
   ): Promise<Wilder> {
     const wilderSchool = (await SchoolRepository.getSchoolByName(
       schoolName
@@ -81,10 +81,7 @@ export default class WilderRepository extends Wilder {
     const wilderSkills = [];
     for (const skillDatas of wilderSkillsDatas) {
       wilderSkills.push(
-        (await SkillRepository.getSkillByName(
-          skillDatas.skillName,
-          skillDatas.skillScore
-        )) as Skill
+        (await SkillRepository.getSkillByName(skillDatas.skillName)) as Skill
       );
     }
     const newWilder = new Wilder(

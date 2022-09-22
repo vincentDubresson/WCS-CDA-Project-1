@@ -15,32 +15,12 @@ export default class SkillRepository extends Skill {
   static async initializeSkill(skills: string[]): Promise<void> {
     this.repository.clear();
     skills.forEach(async (skill) => {
-      for (let i = 1; i <= 5; i++) {
-        await this.repository.save({ skillName: skill, skillScore: i });
-      }
+      await this.repository.save({ skillName: skill });
     });
   }
 
-  static async getRandomSkillByName(name: string): Promise<Skill | null> {
-    const score: number = Math.floor(Math.random() * 5) + 1;
-    return await this.repository.findOne({
-      where: {
-        skillName: name,
-        skillScore: score,
-      },
-    });
-  }
-
-  static async getSkillByName(
-    name: string,
-    score: number
-  ): Promise<Skill | null> {
-    return await this.repository.findOne({
-      where: {
-        skillName: name,
-        skillScore: score,
-      },
-    });
+  static async getSkillByName(name: string): Promise<Skill | null> {
+    return await this.repository.findOneBy({ skillName: name });
   }
 
   static async getSkillById(id: string): Promise<Skill | null> {

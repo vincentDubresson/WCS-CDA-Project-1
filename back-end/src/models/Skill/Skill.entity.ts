@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { IsInt, Length, Min, Max } from "class-validator";
+import { Length } from "class-validator";
 import Wilder from "../Wilder/Wilder.entity";
 
 @Entity()
@@ -10,12 +10,6 @@ export default class Skill {
   @Column()
   @Length(1, 255)
   skillName: string;
-
-  @Column()
-  @IsInt()
-  @Min(1)
-  @Max(5)
-  skillScore: number;
 
   @ManyToMany(() => Wilder, (wilder) => wilder.skills)
   wilders: Wilder[];

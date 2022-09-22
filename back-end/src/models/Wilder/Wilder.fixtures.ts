@@ -15,7 +15,7 @@ const wildersFixtures = (schools: string[], skills: string[]) => {
       picture: `https://i.pravatar.cc/300?img=${i}`,
       isTeacher,
       school: randomInArray(schools),
-      skills: skills,
+      skills: skills.sort(() => Math.random() - 0.5).slice(0, 4),
     });
   }
   return wildersArray;
