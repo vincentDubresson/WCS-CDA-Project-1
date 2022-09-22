@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import NoWilder from "../../components/NoWilder/NoWilder";
-//import Wilder from "../../components/Wilder/Wilder";
 import { CREATE_WILDER_PATH } from "../paths";
 import { fetchWilders } from "./rest";
 import "./Home.scss";

@@ -67,7 +67,6 @@ export default function WilderCard({
             <li className="WilderCardSkills" key={skill.id}>
               <Skills
                 skillName={skill.skillName}
-                skillScore={isTeacher ? 5 : skill.skillScore}
               />
             </li>
           );

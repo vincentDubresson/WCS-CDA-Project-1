@@ -231,7 +231,7 @@ export default function UpdateWilder() {
                     min="1"
                     max="5"
                     step="1"
-                    value={skill.skillScore}
+                    value="1"
                     onChange={(e) => {
                       setSkillScorePhp(e.target.value);
                     }}

@@ -6,7 +6,6 @@ export type School = {
 export type Skill = {
   id: string;
   skillName: string;
-  skillScore: number;
 };
 
 export type Wilder = {
