@@ -10,6 +10,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 532px;
   padding: 15px 0;
   gap: 30px;
   border-radius: 7px;
@@ -34,9 +35,9 @@
 
     .WilderFormTextLabel {
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
       align-items: center;
-      width: 250px;
+      width: 260px;
       height: 40px;
       gap: 10px;
       font-weight: 600;
@@ -45,7 +46,7 @@
         height: 20px;
         border: 1px solid $salmonColor;
         padding-left: 5px;
-      } 
+      }
     }
   }
 
@@ -130,9 +131,10 @@
 
     .WilderFormRangeContainer {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 15px;
+      gap: 8px;
       margin-bottom: 5px;
 
       .WilderFormRangeLabel {
@@ -160,7 +162,7 @@
       text-decoration: none;
       border: 1px solid $salmonColor;
       transition: 0.3s;
-  
+
       &:hover {
         background-color: rgba(247, 108, 108, 0.4);
       }
