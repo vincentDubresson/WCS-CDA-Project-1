@@ -143,15 +143,11 @@ export default function CreateWilder() {
             ></textarea>
           </label>
           {/* PRENDRE EN CHARGE L'IMPORT D'IMAGES */}
-          {/* <label className="WilderFormFileLabel">
+          {/*<label className="WilderFormFileLabel">
             Photo
-            <input
-              type="file"
-              value="aaa"
-            />
-          </label> */}
+            <input type="file" onChange={(e) => {selectedFile(e)}} />
+          </label>*/}
         </fieldset>
-
         <fieldset className="WilderFormFieldset SchoolFieldset">
           <legend className="WilderFormFieldsetLegend">
             Centre de formation
