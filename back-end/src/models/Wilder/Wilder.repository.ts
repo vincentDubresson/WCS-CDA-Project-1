@@ -95,13 +95,13 @@ export default class WilderRepository extends Wilder {
     );
     const errors = await validateOrRejectExample(newWilder);
     if (errors) {
-      let errorList = "";
+      let validationErrors = "";
       for (const error of errors) {
         for (const constraint of Object.values(error.constraints)) {
-          errorList += ` - ${constraint} -`;
+          validationErrors += ` - ${constraint} -`;
         }
       }
-      throw Error(errorList);
+      throw Error(validationErrors);
     } else {
       await this.repository.save(newWilder);
       return newWilder;
