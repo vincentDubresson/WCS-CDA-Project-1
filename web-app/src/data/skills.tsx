@@ -1,4 +1,9 @@
-export const skills: { value: string; label: string }[] = [
+export type SelectSkill = {
+  value: string,
+  label: string,
+};
+
+export const skills: SelectSkill[] = [
   { value: "PHP", label: "PHP" },
   { value: "JS", label: "JS" },
   { value: "Java", label: "Java" },

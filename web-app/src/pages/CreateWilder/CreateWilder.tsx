@@ -9,7 +9,8 @@ import "./CreateWilder.scss";
 import { HOME_PATH } from "../paths";
 import { createWilder } from "./rest";
 import { getErrorMessage } from "../../utils";
-import { skills as skillArray } from "../../data/skills";
+import { SelectSkill, skills as skillArray } from "../../data/skills";
+import { Skill } from "../../data/types";
 
 export default function CreateWilder() {
   const [firstName, setFirstName] = useState("");
@@ -17,11 +18,11 @@ export default function CreateWilder() {
   const [description, setDescription] = useState("");
   const [schoolName, setSchoolName] = useState("");
   const [isTeacher, setIsTeacher] = useState<null | boolean>(null);
-  const [selectedSkills, setSelectedSkills] = useState<any>(null);
+  const [selectedSkills, setSelectedSkills] = useState<null | SelectSkill[]>(null);
   const navigate = useNavigate();
 
-  const skillFunction = (selectedSkills: any[]) => {
-    let skills: any = [];
+  const skillFunction = (selectedSkills: SelectSkill[]): Skill[] => {
+    let skills: any[] = [];
     selectedSkills.forEach((selectedSkill) => {
       skills.push({ skillName: `${selectedSkill.value}` });
     });
@@ -38,7 +39,7 @@ export default function CreateWilder() {
   };
 
   const handleSubmit = async () => {
-    const skills: any = skillFunction(selectedSkills);
+    const skills: Skill[] = skillFunction(selectedSkills as SelectSkill[]);
     try {
       await createWilder(
         firstName,
@@ -175,7 +176,7 @@ export default function CreateWilder() {
             <Select
               options={skillArray}
               value={selectedSkills}
-              onChange={setSelectedSkills}
+              onChange={(data) => {setSelectedSkills(data as SelectSkill[])}}
               isMulti
             />
           </div>
