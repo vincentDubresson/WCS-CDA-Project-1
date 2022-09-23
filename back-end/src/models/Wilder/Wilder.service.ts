@@ -8,7 +8,7 @@ const randomInArray = (array: any) => {
   return returnedValue;
 };
 
-// Validate or Reject
+// Fonction de validation ou rejet des données
 async function validateOrRejectWilderCreation(newWilder: Wilder) {
   try {
     await validateOrReject(newWilder);
