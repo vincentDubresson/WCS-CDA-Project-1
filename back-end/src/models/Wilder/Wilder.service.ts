@@ -9,7 +9,7 @@ const randomInArray = (array: any) => {
 };
 
 // Validate or Reject
-async function validateOrRejectExample(newWilder: Wilder) {
+async function validateOrRejectWilderCreation(newWilder: Wilder) {
   try {
     await validateOrReject(newWilder);
   } catch (errors: any) {
@@ -17,4 +17,4 @@ async function validateOrRejectExample(newWilder: Wilder) {
   }
 }
 
-export { randomInArray, validateOrRejectExample };
+export { randomInArray, validateOrRejectWilderCreation };

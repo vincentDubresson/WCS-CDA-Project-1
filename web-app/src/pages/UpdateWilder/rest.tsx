@@ -6,14 +6,15 @@ export async function fetchWilder(id: string | undefined) {
 }
 
 export async function updateWilder(
+  id: string,
   firstName: string,
   lastName: string,
   description: string,
   isTeacher: null | boolean,
   schoolName: string,
-  skills: { skillName: string; skillScore: number | string }[]
+  skills: { skillName: string }[]
 ): Promise<Wilder> {
-  return query(WILDERS_PATH, HTTPVerb.PUT, {
+  return query(`${WILDERS_PATH}/${id}`, HTTPVerb.PUT, {
     firstName,
     lastName,
     description,

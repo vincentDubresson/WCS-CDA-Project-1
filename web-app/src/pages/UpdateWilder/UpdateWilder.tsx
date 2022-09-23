@@ -1,93 +1,82 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
-import { HOME_PATH } from "../paths";
-import { fetchWilder, updateWilder } from "./rest";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./UpdateWilder.scss";
+
+import { HOME_PATH } from "../paths";
+import { fetchWilder, updateWilder } from "./rest";
 import { getErrorMessage } from "../../utils";
+import { SelectSkill, skills as skillArray } from "../../data/skills";
+import { Skill } from "../../data/types";
 import { Wilder } from "../../data/types";
+import Skills from "../../components/Skill/Skill";
 
 export default function UpdateWilder() {
   const { id } = useParams();
-  const [wilderById, setWilderById] = useState<null | Wilder>(null);
-  const [firstName, setFirstName] = useState(wilderById?.firstName);
+  const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [description, setDescription] = useState("");
   const [schoolName, setSchoolName] = useState("");
   const [isTeacher, setIsTeacher] = useState<null | boolean>(null);
-  const skillPhp = "PHP";
-  const [skillScorePhp, setSkillScorePhp] = useState<string | number>(1);
-  const skillJs = "JS";
-  const [skillScoreJs, setSkillScoreJs] = useState<string | number>(1);
-  const skillJava = "java";
-  const [skillScoreJava, setSkillScoreJava] = useState<string | number>(1);
-  const skillPython = "Python";
-  const [skillScorePython, setSkillScorePython] = useState<string | number>(1);
-  const skillCSharp = "C#";
-  const [skillScoreCsharp, setSkillScoreCsharp] = useState<string | number>(1);
-  const skillRuby = "Ruby";
-  const [skillScoreRuby, setSkillScoreRuby] = useState<string | number>(1);
+  const [selectedSkills, setSelectedSkills] = useState<null | SelectSkill[]>(
+    null
+  );
 
+  const skillFunction = (selectedSkills: SelectSkill[]): Skill[] => {
+    let skills: any[] = [];
+    selectedSkills.forEach((selectedSkill) => {
+      skills.push({ skillName: `${selectedSkill.value}` });
+    });
+    return skills;
+  };
+
+  const prefillForm = (wilder: Wilder): void => {
+    setFirstName(wilder.firstName);
+    setLastName(wilder.lastName);
+    setDescription(wilder.description);
+    setSchoolName(wilder.school.schoolName);
+    setIsTeacher(wilder.isTeacher);
+    setSelectedSkills(
+      ((wilderSkills) => {
+        let skills: any[] = [];
+        wilderSkills.forEach((skill) => {
+          skills.push({ value: skill.skillName, label: skill.skillName });
+        });
+        return skills;
+      })(wilder.skills)
+    );
+  };
+  console.log(selectedSkills);
 
   useEffect(() => {
     (async () => {
       try {
-        const fetchedWilder = await fetchWilder(id);
-        setWilderById(fetchedWilder);
+        const fetchedWilder: Wilder = await fetchWilder(id);
+        console.log(fetchedWilder);
+        prefillForm(fetchedWilder);
       } catch (error) {
         console.log(getErrorMessage(error));
       }
     })();
   }, [id]);
 
-  console.log({ wilderById });
-
-  const skills = [
-    {
-      skillName: skillPhp,
-      skillScore: skillScorePhp,
-    },
-    {
-      skillName: skillJs,
-      skillScore: skillScoreJs,
-    },
-    {
-      skillName: skillJava,
-      skillScore: skillScoreJava,
-    },
-    {
-      skillName: skillPython,
-      skillScore: skillScorePython,
-    },
-    {
-      skillName: skillCSharp,
-      skillScore: skillScoreCsharp,
-    },
-    {
-      skillName: skillRuby,
-      skillScore: skillScoreRuby,
-    },
-    {
-      skillName: "C+",
-      skillScore: 2,
-    },
-  ];
-
   const handleSubmit = async () => {
+      const skills: Skill[] = skillFunction(selectedSkills as SelectSkill[]);
     try {
-      console.log(skills);
       await updateWilder(
-        firstName as string,
-        lastName as string,
-        description as string,
-        isTeacher as boolean,
-        schoolName as string,
+        id as string,
+        firstName,
+        lastName,
+        description,
+        isTeacher,
+        schoolName,
         skills
       );
-      toast.success(`Wilder ${firstName} ${lastName} créé avec succès.`);
+      toast.success(`Wilder ${firstName} ${lastName} modifié avec succès.`);
     } catch (error) {
       toast.error(getErrorMessage(error));
     }
@@ -100,7 +89,7 @@ export default function UpdateWilder() {
         className="WilderForm"
         onSubmit={async (e) => {
           e.preventDefault();
-          await handleSubmit();
+          selectedSkills ? await handleSubmit() : toast.error('Merci de choisir au moins une compétence technique.');
         }}
       >
         <fieldset className="WilderFormFieldset InfoFieldset">
@@ -112,7 +101,7 @@ export default function UpdateWilder() {
             <input
               className="WilderFormTextInput"
               type="text"
-              value={wilderById?.firstName}
+              value={firstName}
               onChange={(e) => {
                 setFirstName(e.target.value);
               }}
@@ -124,7 +113,7 @@ export default function UpdateWilder() {
             <input
               className="WilderFormTextInput"
               type="text"
-              value={wilderById?.lastName}
+              value={lastName}
               onChange={(e) => {
                 setLastName(e.target.value);
               }}
@@ -138,7 +127,7 @@ export default function UpdateWilder() {
             Biographie
             <textarea
               className="WilderFormTextarea"
-              value={wilderById?.description}
+              value={description}
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
@@ -163,7 +152,7 @@ export default function UpdateWilder() {
             Centre de Formation
             <select
               className="WilderFormSelect"
-              value={wilderById?.school.schoolName}
+              value={schoolName}
               onChange={(e) => {
                 setSchoolName(e.target.value);
               }}
@@ -187,8 +176,8 @@ export default function UpdateWilder() {
                   onChange={() => {
                     setIsTeacher(true);
                   }}
-                  checked={wilderById?.isTeacher ? true : false}
-                  required
+                  checked={isTeacher === true}
+                  
                 />
               </label>
               <label>
@@ -199,7 +188,7 @@ export default function UpdateWilder() {
                   onChange={() => {
                     setIsTeacher(false);
                   }}
-                  checked={wilderById?.isTeacher === false ? true : false}
+                  checked={isTeacher === false}
                 />
               </label>
             </div>
@@ -209,27 +198,13 @@ export default function UpdateWilder() {
           <legend className="WilderFormFieldsetLegend">
             Compétences techniques
           </legend>
-          <div className="WilderFormRangeContainer">
-            {wilderById?.skills.map((skill) => {
-              return (
-                <label className="WilderFormRangeLabel">
-                  {skill.skillName}
-                  <input type="hidden" defaultValue="PHP" name="skillName" />
-                  <input
-                    className="WilderFormRangeInput"
-                    type="range"
-                    name="skillScore"
-                    min="1"
-                    max="5"
-                    step="1"
-                    value="1"
-                    onChange={(e) => {
-                      setSkillScorePhp(e.target.value);
-                    }}
-                  />
-                </label>
-              );
-            })}
+          <div style={{ zIndex: "3" }}>
+          <Select
+              options={skillArray}
+              value={selectedSkills}
+              onChange={(data) => {setSelectedSkills(data as SelectSkill[])}}
+              isMulti
+            />
           </div>
         </fieldset>
         <div className="WilderFormButtonsContainer">

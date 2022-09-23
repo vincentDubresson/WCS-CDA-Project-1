@@ -49,7 +49,14 @@ export const post = async (req: Request, res: Response): Promise<void> => {
 // Fonction put pour modifier un wilder
 export const put = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-  const { firstName, lastName } = req.body;
+  const {
+    firstName,
+    lastName,
+    description,
+    isTeacher,
+    schoolName,
+    skills,
+  } = req.body;
 
   if (!firstName || !lastName) {
     res.status(404).json({ error: "Firstname and lastname are mandatory." });
@@ -58,7 +65,11 @@ export const put = async (req: Request, res: Response): Promise<void> => {
       const wilderToUpdate = await WilderRepository.updateWilder(
         id,
         firstName,
-        lastName
+        lastName,
+        description,
+        isTeacher,
+        schoolName,
+        skills,
       );
       res.status(201).json(wilderToUpdate);
     } catch (error) {

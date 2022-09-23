@@ -5,7 +5,7 @@ import SchoolRepository from "../School/School.repository";
 import Skill from "../Skill/Skill.entity";
 import SkillRepository from "../Skill/Skill.repository";
 import Wilder from "./Wilder.entity";
-import { validateOrRejectExample } from "./Wilder.service";
+import { validateOrRejectWilderCreation } from "./Wilder.service";
 
 export default class WilderRepository extends Wilder {
   private static repository: Repository<Wilder>;
@@ -93,7 +93,7 @@ export default class WilderRepository extends Wilder {
       wilderSchool,
       wilderSkills
     );
-    const errors = await validateOrRejectExample(newWilder);
+    const errors = await validateOrRejectWilderCreation(newWilder);
     if (errors) {
       let validationErrors = "";
       for (const error of errors) {
@@ -111,23 +111,50 @@ export default class WilderRepository extends Wilder {
   static async updateWilder(
     id: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    description: string,
+    isTeacher: boolean,
+    schoolName: string,
+    wilderSkillsDatas: { skillName: string; }[]
   ): Promise<
     {
       id: string;
       firstName: string;
       lastName: string;
+      description: string,
+      isTeacher: boolean,
+      wilderPicture: string,
+      school: School,
+      skills: Skill[]
     } & Wilder
   > {
     const wilder = await this.repository.findOneBy({ id });
     if (!wilder) {
       throw Error("No existing Wilder matching ID.");
     }
-    const updateWilder = this.repository.save({
+    const wilderPicture = wilder.picture;
+    const wilderSchool = await SchoolRepository.getSchoolByName(
+      schoolName
+    ) as School;
+    const wilderSkills: Skill[] = [];
+    for (const skillDatas of wilderSkillsDatas) {
+      wilderSkills.push(
+        await SkillRepository.getSkillByName(skillDatas.skillName) as Skill
+      );
+    }
+    console.log(wilderSchool);
+    console.log(wilderSkills);
+    const updateWilder = await this.repository.save({
       id,
       firstName,
       lastName,
+      description,
+      isTeacher,
+      wilderPicture,
+      wilderSchool,
+      wilderSkills
     });
+    console.warn(updateWilder);
     return updateWilder;
   }
 

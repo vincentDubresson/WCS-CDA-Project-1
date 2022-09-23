@@ -10,31 +10,24 @@ Content-Type: application/json
   "skills": [
           {
             "skillName": "C#",
-            "skillScore": 1
           },
           {
             "skillName": "Ruby",
-            "skillScore": 3
           },
           {
             "skillName": "PHP",
-            "skillScore": 5
           },
           {
             "skillName": "Java",
-            "skillScore": 2
           },
           {
             "skillName": "Python",
-            "skillScore": 4
           },
           {
             "skillName": "C+",
-            "skillScore": 1
           },
           {
             "skillName": "JS",
-            "skillScore": 2
-          }
+          },
         ]
 }

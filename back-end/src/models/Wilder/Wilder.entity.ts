@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Length, MinLength } from "class-validator";
+import { MaxLength, MinLength } from "class-validator";
 import School from "../School/School.entity";
 import Skill from "../Skill/Skill.entity";
 
@@ -40,15 +40,21 @@ export default class Wilder {
   id: string;
 
   @Column()
-  @Length(1, 255)
+  @MaxLength(255, {
+    message: "Le prénom ne doit pas dépasser 255 caractères.",
+  })
   firstName: string;
 
   @Column()
-  @Length(1, 255)
+  @MaxLength(255, {
+    message: "Le nom ne doit pas dépasser 255 caractères.",
+  })
   lastName: string;
 
   @Column()
-  @MinLength(1)
+  @MinLength(1, {
+    message: "Merci de rentrer une description (même très courte)."
+  })
   description: string;
 
   @Column({ default: "http://placeimg.com/300/300/people" })
