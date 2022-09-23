@@ -95,7 +95,7 @@ export default class WilderRepository extends Wilder {
     );
     const errors = await validateOrRejectWilderCreation(newWilder);
     if (errors) {
-      let validationErrors = "";
+      let validationErrors: string = "";
       for (const error of errors) {
         for (const constraint of Object.values(error.constraints)) {
           validationErrors += ` - ${constraint} -`;
