@@ -1,11 +1,12 @@
 import { Repository } from "typeorm";
 import { getRepository } from "../../database/utils";
-import School from "../School/School.entity";
-import SchoolRepository from "../School/School.repository";
-import Skill from "../Skill/Skill.entity";
-import SkillRepository from "../Skill/Skill.repository";
+
 import Wilder from "./Wilder.entity";
-import { validateOrRejectWilderCreation } from "./Wilder.service";
+import School from "../School/School.entity";
+import Skill from "../Skill/Skill.entity";
+
+import SchoolRepository from "../School/School.repository";
+import SkillRepository from "../Skill/Skill.repository";
 
 export default class WilderRepository extends Wilder {
   private static repository: Repository<Wilder>;
@@ -60,9 +61,11 @@ export default class WilderRepository extends Wilder {
 
   static async getWilderById(id: string): Promise<Wilder> {
     const wilder = await this.repository.findOneBy({ id });
+
     if (!wilder) {
       throw Error("No existing Wilder matching ID.");
     }
+
     return wilder;
   }
 
@@ -73,17 +76,19 @@ export default class WilderRepository extends Wilder {
     wilderIsTeacher: boolean,
     wilderPicture: string,
     schoolName: string,
-    wilderSkillsDatas: { skillName: string; }[]
+    wilderSkillsDatas: string[]
   ): Promise<Wilder> {
     const wilderSchool = (await SchoolRepository.getSchoolByName(
       schoolName
     )) as School;
     const wilderSkills = [];
+
     for (const skillDatas of wilderSkillsDatas) {
       wilderSkills.push(
-        (await SkillRepository.getSkillByName(skillDatas.skillName)) as Skill
+        (await SkillRepository.getSkillByName(skillDatas)) as Skill
       );
     }
+
     const newWilder = new Wilder(
       wilderFirstname,
       wilderLastname,
@@ -93,19 +98,8 @@ export default class WilderRepository extends Wilder {
       wilderSchool,
       wilderSkills
     );
-    const errors = await validateOrRejectWilderCreation(newWilder);
-    if (errors) {
-      let validationErrors: string = "";
-      for (const error of errors) {
-        for (const constraint of Object.values(error.constraints)) {
-          validationErrors += ` - ${constraint} -`;
-        }
-      }
-      throw Error(validationErrors);
-    } else {
-      await this.repository.save(newWilder);
-      return newWilder;
-    }
+
+    return await this.repository.save(newWilder);
   }
 
   static async updateWilder(
@@ -114,55 +108,48 @@ export default class WilderRepository extends Wilder {
     lastName: string,
     description: string,
     isTeacher: boolean,
+    picture: string,
     schoolName: string,
-    wilderSkillsDatas: { skillName: string; }[]
-  ): Promise<
-    {
-      id: string;
-      firstName: string;
-      lastName: string;
-      description: string,
-      isTeacher: boolean,
-      wilderPicture: string,
-      school: School,
-      skills: Skill[]
-    } & Wilder
-  > {
+    wilderSkillsDatas: string[]
+  ): Promise<Wilder> {
     const wilder = await this.repository.findOneBy({ id });
+
     if (!wilder) {
       throw Error("No existing Wilder matching ID.");
     }
-    const wilderPicture = wilder.picture;
-    const wilderSchool = await SchoolRepository.getSchoolByName(
+
+    const wilderSchool = (await SchoolRepository.getSchoolByName(
       schoolName
-    ) as School;
+    )) as School;
     const wilderSkills: Skill[] = [];
+
     for (const skillDatas of wilderSkillsDatas) {
       wilderSkills.push(
-        await SkillRepository.getSkillByName(skillDatas.skillName) as Skill
+        (await SkillRepository.getSkillByName(skillDatas)) as Skill
       );
     }
-    console.log(wilderSchool);
-    console.log(wilderSkills);
-    const updateWilder = await this.repository.save({
-      id,
-      firstName,
-      lastName,
-      description,
-      isTeacher,
-      wilderPicture,
-      wilderSchool,
-      wilderSkills
+
+    const updateWilder: Wilder = await this.repository.save({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      description: description,
+      isTeacher: isTeacher,
+      picture: picture,
+      school: wilderSchool,
+      skills: wilderSkills,
     });
-    console.warn(updateWilder);
+
     return updateWilder;
   }
 
   static async deleteWilder(id: string): Promise<Wilder> {
     const wilder = await this.repository.findOneBy({ id });
+
     if (!wilder) {
       throw Error("No existing Wilder matching ID.");
     }
+
     return this.repository.remove(wilder);
   }
 
@@ -170,17 +157,20 @@ export default class WilderRepository extends Wilder {
     wilderId: string,
     skillId: string
   ): Promise<Wilder> {
-    /*     const wilderRepository = await getWilderRepository();
-    const skillRepository = await getSkillRepository(); */
     const wilder = await this.repository.findOneBy({ id: wilderId });
+
     if (!wilder) {
       throw Error("No existing Wilder matching ID.");
     }
+
     const skill = await SkillRepository.getSkillById(skillId);
+
     if (!skill) {
       throw Error("No existing Skill matching ID.");
     }
+
     wilder.skills = [...wilder.skills, skill];
+
     return this.repository.save(wilder);
   }
 }

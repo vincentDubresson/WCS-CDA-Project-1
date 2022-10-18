@@ -6,6 +6,7 @@ import { randomInArray } from "./Wilder.service";
 // Fonction utilisée pour créer un jeu de données en faker
 const wildersFixtures = (schools: string[], skills: string[]) => {
   let wildersArray = [];
+
   for (let i = 1; i <= 50; i++) {
     const isTeacher = !(i % 10);
     wildersArray.push({
@@ -18,9 +19,8 @@ const wildersFixtures = (schools: string[], skills: string[]) => {
       skills: skills.sort(() => Math.random() - 0.5).slice(0, 4),
     });
   }
+
   return wildersArray;
 };
 
-const wildersArray = wildersFixtures(schools, skills);
-
-export { wildersArray };
+export const wildersArray = wildersFixtures(schools, skills);

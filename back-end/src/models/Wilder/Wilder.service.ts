@@ -1,20 +1,6 @@
-import Wilder from "./Wilder.entity";
-import { validateOrReject } from "class-validator";
-
 // Fonction de select random dans un tableau
-const randomInArray = (array: any) => {
-  let randomKey = (Math.random() * array.length) | 0;
-  let returnedValue = array[randomKey];
-  return returnedValue;
+export const randomInArray = (array: any) => {
+  const randomKey = (Math.random() * array.length) | 0;
+
+  return array[randomKey];
 };
-
-// Fonction de validation ou rejet des données
-async function validateOrRejectWilderCreation(newWilder: Wilder) {
-  try {
-    await validateOrReject(newWilder);
-  } catch (errors: any) {
-    return errors;
-  }
-}
-
-export { randomInArray, validateOrRejectWilderCreation };

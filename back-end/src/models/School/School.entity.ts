@@ -5,20 +5,22 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Contains, Length } from "class-validator";
 import Wilder from "../Wilder/Wilder.entity";
+import { Field, ID, ObjectType } from "type-graphql";
 
 @Entity()
+@ObjectType()
 export default class School {
   @PrimaryGeneratedColumn("uuid")
+  @Field(() => ID)
   id: string;
 
   @Column()
   @Index({ unique: true })
-  @Contains("WCS-")
-  @Length(5, 255)
+  @Field()
   schoolName: string;
 
   @OneToMany(() => Wilder, (wilder) => wilder.school)
+  @Field(() => [Wilder])
   wilders: Wilder[];
 }

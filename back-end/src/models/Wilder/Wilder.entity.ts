@@ -6,11 +6,13 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { MaxLength, MinLength } from "class-validator";
+import { ID, Field, ObjectType } from "type-graphql";
+
 import School from "../School/School.entity";
 import Skill from "../Skill/Skill.entity";
 
 @Entity()
+@ObjectType()
 export default class Wilder {
   constructor(
     firstName: string,
@@ -37,36 +39,35 @@ export default class Wilder {
   }
 
   @PrimaryGeneratedColumn("uuid")
+  @Field(() => ID)
   id: string;
 
   @Column()
-  @MaxLength(255, {
-    message: "Le prénom ne doit pas dépasser 255 caractères.",
-  })
+  @Field()
   firstName: string;
 
   @Column()
-  @MaxLength(255, {
-    message: "Le nom ne doit pas dépasser 255 caractères.",
-  })
+  @Field()
   lastName: string;
 
   @Column()
-  @MinLength(1, {
-    message: "Merci de rentrer une description (même très courte)."
-  })
+  @Field()
   description: string;
 
   @Column({ default: "http://placeimg.com/300/300/people" })
+  @Field()
   picture: string;
 
   @Column()
+  @Field()
   isTeacher: boolean;
 
   @ManyToOne(() => School, (school) => school.wilders, { eager: true })
+  @Field(() => School)
   school: School;
 
   @ManyToMany(() => Skill, { eager: true })
   @JoinTable()
+  @Field(() => [Skill])
   skills: Skill[];
 }
