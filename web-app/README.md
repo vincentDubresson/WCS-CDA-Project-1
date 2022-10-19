@@ -2,6 +2,19 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Install GraphQL + Apollo
+
+```
+npm install @apollo/client graphql
+npm install --save-dev @graphql-codegen/cli
+npm install --save-dev @graphql-codegen/client-preset
+```
+## Pour importer les schéma GraphQL
+
+```
+npm run gql-codegen
+```
+
 ## Available Scripts
 
 In the project directory, you can run:

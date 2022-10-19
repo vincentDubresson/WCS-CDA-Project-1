@@ -2,29 +2,40 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
+import { useMutation } from "@apollo/client";
+
+import { HOME_PATH } from "../paths";
+import { getErrorMessage } from "../../utils";
+import { SelectSkill, skills as skillArray } from "../../data/skills";
+import {
+  CreateWilderMutation,
+  CreateWilderMutationVariables,
+} from "../../gql/graphql";
+import { CREATE_WILDER } from "../../services/mutations";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./CreateWilder.scss";
-
-import { HOME_PATH } from "../paths";
-import { createWilder } from "./rest";
-import { getErrorMessage } from "../../utils";
-import { SelectSkill, skills as skillArray } from "../../data/skills";
-import { Skill } from "../../data/types";
 
 export default function CreateWilder() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [description, setDescription] = useState("");
   const [schoolName, setSchoolName] = useState("");
-  const [isTeacher, setIsTeacher] = useState<null | boolean>(null);
-  const [selectedSkills, setSelectedSkills] = useState<null | SelectSkill[]>(null);
+  const [isTeacher, setIsTeacher] = useState<boolean>(false);
+  const [selectedSkills, setSelectedSkills] = useState<null | SelectSkill[]>(
+    null
+  );
   const navigate = useNavigate();
 
-  const skillFunction = (selectedSkills: SelectSkill[]): Skill[] => {
+  const [createOneWilder] = useMutation<
+    CreateWilderMutation,
+    CreateWilderMutationVariables
+  >(CREATE_WILDER);
+
+  const skillFunction = (selectedSkills: SelectSkill[]): string[] => {
     let skills: any[] = [];
     selectedSkills.forEach((selectedSkill) => {
-      skills.push({ skillName: `${selectedSkill.value}` });
+      skills.push(`${selectedSkill.value}`);
     });
     return skills;
   };
@@ -33,22 +44,24 @@ export default function CreateWilder() {
     setFirstName("");
     setLastName("");
     setDescription("");
-    setIsTeacher(null);
+    setIsTeacher(false);
     setSchoolName("");
     setSelectedSkills(null);
   };
 
   const handleSubmit = async () => {
-    const skills: Skill[] = skillFunction(selectedSkills as SelectSkill[]);
+    const skills: string[] = skillFunction(selectedSkills as SelectSkill[]);
     try {
-      await createWilder(
-        firstName,
-        lastName,
-        description,
-        isTeacher,
-        schoolName,
-        skills
-      );
+      await createOneWilder({
+        variables: {
+          firstName,
+          lastName,
+          description,
+          isTeacher,
+          schoolName,
+          skills,
+        },
+      });
       toast.success(`Wilder ${firstName} ${lastName} créé avec succès.`);
       toast.success("Redirection vers la page d'accueil dans 5 secondes");
       initializeForm();
@@ -67,7 +80,11 @@ export default function CreateWilder() {
         className="WilderForm"
         onSubmit={async (e) => {
           e.preventDefault();
-          selectedSkills ? await handleSubmit() : toast.error('Merci de choisir au moins une compétence technique.');
+          selectedSkills
+            ? await handleSubmit()
+            : toast.error(
+                "Merci de choisir au moins une compétence technique."
+              );
         }}
       >
         <fieldset className="WilderFormFieldset InfoFieldset">
@@ -176,7 +193,9 @@ export default function CreateWilder() {
             <Select
               options={skillArray}
               value={selectedSkills}
-              onChange={(data) => {setSelectedSkills(data as SelectSkill[])}}
+              onChange={(data) => {
+                setSelectedSkills(data as SelectSkill[]);
+              }}
               isMulti
             />
           </div>

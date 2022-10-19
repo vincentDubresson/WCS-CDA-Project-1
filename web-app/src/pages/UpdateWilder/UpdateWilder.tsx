@@ -1,45 +1,68 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
+import { useMutation, useQuery } from "@apollo/client";
+
+import { HOME_PATH } from "../paths";
+import { getErrorMessage } from "../../utils";
+import { SelectSkill, skills as skillArray } from "../../data/skills";
+import {
+  UpdateWilderMutation,
+  UpdateWilderMutationVariables,
+  WilderQuery,
+  WilderQueryVariables,
+} from "../../gql/graphql";
+import { GET_WILDER } from "../../services/queries";
+import { UPDATE_WILDER } from "../../services/mutations";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./UpdateWilder.scss";
 
-import { HOME_PATH } from "../paths";
-import { fetchWilder, updateWilder } from "./rest";
-import { getErrorMessage } from "../../utils";
-import { SelectSkill, skills as skillArray } from "../../data/skills";
-import { Skill } from "../../data/types";
-import { Wilder } from "../../data/types";
-import Skills from "../../components/Skill/Skill";
-
 export default function UpdateWilder() {
   const { id } = useParams();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [description, setDescription] = useState("");
-  const [schoolName, setSchoolName] = useState("");
-  const [isTeacher, setIsTeacher] = useState<null | boolean>(null);
+  const wilderId = id as string;
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [picture, setPicture] = useState<string>("");
+  const [schoolName, setSchoolName] = useState<string>("");
+  const [isTeacher, setIsTeacher] = useState<boolean>(false);
   const [selectedSkills, setSelectedSkills] = useState<null | SelectSkill[]>(
     null
   );
 
-  const skillFunction = (selectedSkills: SelectSkill[]): Skill[] => {
-    let skills: any[] = [];
+  function GetWilder(wilderId: string): WilderQuery {
+    const { data } = useQuery<WilderQuery, WilderQueryVariables>(GET_WILDER, {
+      variables: { wilderId },
+    });
+    return data as WilderQuery;
+  }
+
+  const fetchedWilder = GetWilder(wilderId) as WilderQuery;
+
+  const [updateWilder] = useMutation<
+    UpdateWilderMutation,
+    UpdateWilderMutationVariables
+  >(UPDATE_WILDER);
+
+  const skillFunction = (selectedSkills: SelectSkill[]): string[] => {
+    let skills: string[] = [];
     selectedSkills.forEach((selectedSkill) => {
-      skills.push({ skillName: `${selectedSkill.value}` });
+      skills.push(`${selectedSkill.value}`);
     });
     return skills;
   };
 
-  const prefillForm = (wilder: Wilder): void => {
-    setFirstName(wilder.firstName);
-    setLastName(wilder.lastName);
-    setDescription(wilder.description);
-    setSchoolName(wilder.school.schoolName);
-    setIsTeacher(wilder.isTeacher);
+  const prefillForm = (wilder: WilderQuery): void => {
+    setFirstName(wilder.wilder.firstName);
+    setLastName(wilder.wilder.lastName);
+    setDescription(wilder.wilder.description);
+    setSchoolName(wilder.wilder.school.schoolName);
+    setPicture(wilder.wilder.picture);
+    setIsTeacher(wilder.wilder.isTeacher);
     setSelectedSkills(
       ((wilderSkills) => {
         let skills: any[] = [];
@@ -47,36 +70,51 @@ export default function UpdateWilder() {
           skills.push({ value: skill.skillName, label: skill.skillName });
         });
         return skills;
-      })(wilder.skills)
+      })(wilder.wilder.skills)
     );
   };
-  console.log(selectedSkills);
 
   useEffect(() => {
     (async () => {
       try {
-        const fetchedWilder: Wilder = await fetchWilder(id);
-        console.log(fetchedWilder);
         prefillForm(fetchedWilder);
       } catch (error) {
         console.log(getErrorMessage(error));
       }
     })();
-  }, [id]);
+  }, [fetchedWilder]);
 
   const handleSubmit = async () => {
-      const skills: Skill[] = skillFunction(selectedSkills as SelectSkill[]);
+    const skills: string[] = skillFunction(selectedSkills as SelectSkill[]);
+    const updateWilderId = id as string;
+    console.log({
+      id,
+      firstName,
+      lastName,
+      description,
+      picture,
+      isTeacher,
+      schoolName,
+      skills,
+    });
     try {
-      await updateWilder(
-        id as string,
-        firstName,
-        lastName,
-        description,
-        isTeacher,
-        schoolName,
-        skills
-      );
+      await updateWilder({
+        variables: {
+          updateWilderId,
+          firstName,
+          lastName,
+          description,
+          picture,
+          isTeacher,
+          schoolName,
+          skills,
+        },
+      });
       toast.success(`Wilder ${firstName} ${lastName} modifié avec succès.`);
+      toast.success("Redirection vers la page d'accueil dans 5 secondes");
+      setTimeout(() => {
+        navigate("/");
+      }, 6000);
     } catch (error) {
       toast.error(getErrorMessage(error));
     }
@@ -89,7 +127,11 @@ export default function UpdateWilder() {
         className="WilderForm"
         onSubmit={async (e) => {
           e.preventDefault();
-          selectedSkills ? await handleSubmit() : toast.error('Merci de choisir au moins une compétence technique.');
+          selectedSkills
+            ? await handleSubmit()
+            : toast.error(
+                "Merci de choisir au moins une compétence technique."
+              );
         }}
       >
         <fieldset className="WilderFormFieldset InfoFieldset">
@@ -119,6 +161,7 @@ export default function UpdateWilder() {
               }}
               required
             />
+            <input type="hidden" value={picture} />
           </label>
         </fieldset>
         <fieldset className="WilderFormFieldset DetailsFieldset">
@@ -177,7 +220,6 @@ export default function UpdateWilder() {
                     setIsTeacher(true);
                   }}
                   checked={isTeacher === true}
-                  
                 />
               </label>
               <label>
@@ -199,10 +241,12 @@ export default function UpdateWilder() {
             Compétences techniques
           </legend>
           <div style={{ zIndex: "3" }}>
-          <Select
+            <Select
               options={skillArray}
               value={selectedSkills}
-              onChange={(data) => {setSelectedSkills(data as SelectSkill[])}}
+              onChange={(data) => {
+                setSelectedSkills(data as SelectSkill[]);
+              }}
               isMulti
             />
           </div>

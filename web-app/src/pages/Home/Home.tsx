@@ -1,28 +1,39 @@
 //import React from 'react';
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { useQuery, useMutation } from "@apollo/client";
 
 import Loader from "../../components/Loader/Loader";
 import NoWilder from "../../components/NoWilder/NoWilder";
-import { CREATE_WILDER_PATH } from "../paths";
-import { deleteWilder, fetchWilders } from "./rest";
-import "./Home.scss";
-import { getErrorMessage } from "../../utils";
 import WilderCard from "../../components/Wilder/Wilder";
+import { CREATE_WILDER_PATH } from "../paths";
+import { getErrorMessage } from "../../utils";
+import { GET_WILDERS } from "../../services/queries";
+import { DELETE_WILDER } from "../../services/mutations";
+import "./Home.scss";
+
+import {
+  DeleteWilderMutation,
+  DeleteWilderMutationVariables,
+  GetWildersQuery,
+} from "../../gql/graphql";
 
 export default function Home() {
-  const [wildersList, setWildersList] = useState<null | any[]>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const { data, loading, error, refetch } = useQuery<GetWildersQuery>(
+    GET_WILDERS,
+    { fetchPolicy: "cache-and-network" }
+  );
+  const [deleteOneWilder] = useMutation<
+    DeleteWilderMutation,
+    DeleteWilderMutationVariables
+  >(DELETE_WILDER);
 
-  const handleDeleteWilder = (id: string): void => {
+  const handleDeleteWilder = (deleteWilderId: string): void => {
     if (window.confirm("Êtes-vous sûr de supprimer ce wilder ?")) {
       (async () => {
         try {
-          await deleteWilder(id);
-          const fetchedWilders = await fetchWilders();
-          setWildersList(fetchedWilders);
+          await deleteOneWilder({ variables: { deleteWilderId } });
+          await refetch();
           toast.success(`Suppression réussie`);
         } catch (error) {
           toast.error(getErrorMessage(error));
@@ -31,32 +42,19 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const fetchedWilders = await fetchWilders();
-        setWildersList(fetchedWilders);
-      } catch (error) {
-        setErrorMessage(getErrorMessage(error));
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, []);
-
   const renderMainContent = () => {
-    if (isLoading) {
+    if (loading) {
       return <Loader />;
     }
-    if (errorMessage) {
-      return errorMessage;
+    if (error) {
+      return error.message;
     }
-    if (!wildersList?.length) {
+    if (!data?.wilders?.length) {
       return <NoWilder />;
     }
     return (
       <section className="CardsSection">
-        {wildersList.map((wilder) => (
+        {data?.wilders.map((wilder) => (
           <WilderCard
             key={wilder.id}
             id={wilder.id}
