@@ -1,5 +1,6 @@
 import { Repository } from "typeorm";
 import { getRepository } from "../../database/utils";
+import WilderRepository from "../Wilder/Wilder.repository";
 import Skill from "./Skill.entity";
 
 export default class SkillRepository extends Skill {
@@ -9,11 +10,12 @@ export default class SkillRepository extends Skill {
   }
 
   static async clearRepository(): Promise<void> {
-    this.repository.clear();
+    this.repository.delete({});
   }
 
   static async initializeSkill(skills: string[]): Promise<void> {
-    this.repository.clear();
+    await WilderRepository.clearRepository();
+    await this.clearRepository();
     skills.forEach(async (skill) => {
       await this.repository.save({ skillName: skill });
     });

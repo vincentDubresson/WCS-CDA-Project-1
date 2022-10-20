@@ -15,7 +15,7 @@ export default class WilderRepository extends Wilder {
   }
 
   static async clearRepository(): Promise<void> {
-    this.repository.clear();
+    this.repository.delete({});
   }
 
   static async initializeWilders(
@@ -29,7 +29,7 @@ export default class WilderRepository extends Wilder {
       skills: string[];
     }[]
   ): Promise<void> {
-    await this.repository.clear();
+    await this.clearRepository();
     await Promise.all(
       wildersArray.map(async (wilder) => {
         const wilderSchool = (await SchoolRepository.getSchoolByName(

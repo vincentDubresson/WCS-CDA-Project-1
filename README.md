@@ -1,31 +1,11 @@
 # WCS-CDA-Project-1
 
-## Back-end
+## Getting started
 
-Install dependecies
+## Run server in dev mode
 
-```
-cd back-end
-npm install
-```
-
-Start server in developpment mode
+Docker and Docker Compose are required on host system.
 
 ```
-npm run start:watch
-```
-
-## Wab-app
-
-Install dependencies
-
-```
-cd web-app
-npm install
-```
-
-Start server
-
-```
-npm start
+docker compose -f docker-compose.dev.yml up --build
 ```

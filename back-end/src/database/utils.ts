@@ -2,8 +2,8 @@ import { DataSource, EntityTarget } from "typeorm";
 
 // On crée ou on va chercher la base de données.
 const dataSource = new DataSource({
-  type: "sqlite",
-  database: "./WCS-CDA-Project-1.sqlite",
+  type: "postgres",
+  url: process.env.DATABASE_URL,
   // Ne jamais mettre l'option ci-dessous en prod
   synchronize: true,
   // On déclare les entités utilisées dans la base de données.
